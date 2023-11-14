@@ -13,6 +13,7 @@ def EastCheck(table, startingx, startingy, endx, endy):
     return product
 
 def SouthCheck(table, startingx, startingy, endx, endy):
+    product = 0
     # Same logic, going down and skipping columns
     for y in range(startingy, endy):
         for x in range(startingx + 3, endx):
@@ -74,8 +75,36 @@ def main():
         [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
     ]
 
-    products = [EastCheck(table,0,0,20,20), SouthCheck(table,0,0,20,20)]
-    startingSE = []
-    for i in range(20):
-        for j in range(20):
-            starting = [i, j]
+    products = [EastCheck(table,0,0,20,20), SouthCheck(table,0,0,20,20), 0, 0]
+    for i in range(17):
+        starting = [i, 0]
+        offsetx = starting[0]
+        product = SECheck(table, offsetx, 0, 20, 20 - offsetx)
+        if product > products[2]:
+            products[2] = product
+
+    for j in range(17):
+        starting = [0,j]
+        offsety = starting[1]
+        product = SECheck(table, 0, offsety, 20 - offsety, 20)
+        if product > products[2]:
+            products[2] = product
+
+    for i in range(17):
+        starting = [20 - i, 0]
+        offsetx = 20 - i
+        product = SWCheck(table, i, offsetx, 0, 20 - offsetx)
+        if product > products[3]:
+            products[3] = product
+
+    for j in range(17):
+        starting = [20, j]
+        offsety = j
+        product = SWCheck(table, 20, offsety, offsety, 20)
+        if product > products[3]:
+            products[3] = product
+
+    print(max(products))
+
+if __name__ == '__main__':
+    main()
