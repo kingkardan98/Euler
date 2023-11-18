@@ -1,57 +1,138 @@
-# I need to check in just two "straight" directions and two "diagonal" directions:
-# STRAIGHT - Right, down
-# DIAGONAL - Right-to-left up-to-down, left-to-right up-to-down
-
-def EastCheck(table, startingx, startingy, endx, endy):
-    product = 0
-    # For every row, I first go down one single row, then skip to the next row.
-    for x in range(startingx, endx):
-        for y in range(startingy + 3, endy):
-            newProduct = table[x][y-3] * table[x][y-2] * table[x][y-1] * table[x][y]
-            if newProduct > product:
-                product = newProduct
+def DiagEast3(table, x, y):
+    try:
+        product = table[x-3][y-3] * table[x-2][y-2] * table[x-1][y-1] * table[x][y]
+    except IndexError:
+        product = 0
     return product
 
-def SouthCheck(table, startingx, startingy, endx, endy):
-    product = 0
-    # Same logic, going down and skipping columns
-    for y in range(startingy, endy):
-        for x in range(startingx + 3, endx):
-            newProduct = table[x-3][y] * table[x-2][y] * table[x-1][y] * table[x][y]
-            if newProduct > product:
-                product = newProduct
+def DiagEast2(table, x, y):
+    try:
+        product = table[x-2][y-2] * table[x-1][y-1] * table[x][y] * table[x+1][y+1]
+    except IndexError:
+        product = 0
     return product
 
-def SECheck(table, startingx, startingy, endx, endy):
-    # This logic is a bit trickier.
-    # I need to go down one diagonal, reach a MAX value
-    # and then skip diagonals. Do that until there are
-    # less than four elements in that diagonal.
-    product = 0
-    x = startingx + 3
-    y = startingy + 3
-    while x < endx + 1  and y < endy + 1:
-        newProduct = table[x-3][y-3] * table[x-2][y-2] * table[x-1][y-1] * table[x][y]
-        if newProduct > product:
-            product = newProduct
-        x += 1
-        y += 1
+def DiagEast1(table, x, y):
+    try:
+        product = table[x-1][y-1] * table[x][y] * table[x+1][y+1] * table[x+2][y+2]
+    except IndexError:
+        product = 0
     return product
 
-def SWCheck(table, startingx, startingy, endx, endy):
-    # Same logic as before, different x direction.
-    x = startingx - 3
-    y = startingy + 3
-    while x < endx + 1  and y < endy + 1:
-        newProduct = table[x+3][y-3] * table[x+2][y-2] * table[x+1][y-1] * table[x][y]
-        if newProduct > product:
-            product = newProduct
-        x += 1
-        y += 1
+def DiagEast0(table, x, y):
+    try:
+        product = table[x][y] * table[x+1][y+1] * table[x+2][y+2] * table[x+3][y+3]
+    except IndexError:
+        product = 0
     return product
+
+def DiagWest3(table, x, y):
+    try:
+        product = table[x+3][y-3] * table[x+2][y-2] * table[x+1][y-1] * table[x][y]
+    except IndexError:
+        product = 0
+    return product
+
+def DiagWest2(table, x, y):
+    try:
+        product = table[x+2][y-2] * table[x+1][y-1] * table[x][y] * table[x-1][y+1]
+    except IndexError:
+        product = 0
+    return product
+
+def DiagWest1(table, x, y):
+    try:
+        product = table[x+1][y-1] * table[x][y] * table[x-1][y+1] * table[x-2][y+2]
+    except IndexError:
+        product = 0
+    return product
+
+def DiagWest0(table, x, y):
+    try:
+        product = table[x][y] * table[x-1][y+1] * table[x-2][y+2] * table[x-3][y+3]
+    except IndexError:
+        product = 0
+    return product
+
+def Down3(table, x, y):
+    try:
+        product = table[x][y-3] * table[x][y-2] * table[x][y-1] * table[x][y]
+    except IndexError:
+        product = 0
+    return product
+
+def Down2(table, x, y):
+    try:
+        product = table[x][y-2] * table[x][y-1] * table[x][y] * table[x][y+1]
+    except IndexError:
+        product = 0
+    return product
+
+def Down1(table, x, y):
+    try:
+        product = table[x][y-1] * table[x][y] * table[x][y+1] * table[x][y+2]
+    except IndexError:
+        product = 0
+    return product
+
+def Down0(table, x, y):
+    try:
+        product = table[x][y] * table[x][y+1] * table[x][y+2] * table[x][y+3]
+    except IndexError:
+        product = 0
+    return product
+
+def Right3(table, x, y):
+    try:
+        product = table[x-3][y] * table[x-2][y] * table[x-1][y] * table[x][y]
+    except IndexError:
+        product = 0
+    return product
+
+def Right2(table, x, y):
+    try:
+        product = table[x-2][y] * table[x-1][y] * table[x][y] * table[x+1][y]
+    except IndexError:
+        product = 0
+    return product
+
+def Right1(table, x, y):
+    try:
+        product = table[x-1][y] * table[x][y] * table[x+1][y] * table[x+2][y]
+    except IndexError:
+        product = 0
+    return product
+
+def Right0(table, x, y):
+    try:
+        product = table[x][y] * table[x+1][y] * table[x+2][y] * table[x+3][y]
+    except IndexError:
+        product = 0
+    return product
+
+def sixteenProdCalc(table, x, y):
+    # For every position, there are sixteen maximum possible products.
+    # We try every product. If it works, good shit.
+    # Functions will be named as follows:
+    # <direction=['DiagEast', 'DiagWest', 'Down', 'Right']><offset='3,2,1,0'>()
+    return [DiagEast3(table, x, y),
+            DiagEast2(table, x, y),
+            DiagEast1(table, x, y),
+            DiagEast0(table, x, y),
+            DiagWest3(table, x, y),
+            DiagWest2(table, x, y),
+            DiagWest1(table, x, y),
+            DiagWest0(table, x, y),
+            Down3(table, x, y),
+            Down2(table, x, y),
+            Down1(table, x, y),
+            Down0(table, x, y),
+            Right3(table, x, y),
+            Right2(table, x, y),
+            Right1(table, x, y),
+            Right0(table, x, y)]
 
 def main():
-    # Right check.
     table = [
         [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
         [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -75,34 +156,11 @@ def main():
         [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
     ]
 
-    products = [EastCheck(table,0,0,20,20), SouthCheck(table,0,0,20,20), 0, 0]
-    for i in range(17):
-        starting = [i, 0]
-        offsetx = starting[0]
-        product = SECheck(table, offsetx, 0, 20, 20 - offsetx)
-        if product > products[2]:
-            products[2] = product
+    products = []
 
-    for j in range(17):
-        starting = [0,j]
-        offsety = starting[1]
-        product = SECheck(table, 0, offsety, 20 - offsety, 20)
-        if product > products[2]:
-            products[2] = product
-
-    for i in range(17):
-        starting = [20 - i, 0]
-        offsetx = 20 - i
-        product = SWCheck(table, i, offsetx, 0, 20 - offsetx)
-        if product > products[3]:
-            products[3] = product
-
-    for j in range(17):
-        starting = [20, j]
-        offsety = j
-        product = SWCheck(table, 20, offsety, offsety, 20)
-        if product > products[3]:
-            products[3] = product
+    for x in range(20):
+        for y in range(20):
+            products.extend(sixteenProdCalc(table, x, y))
 
     print(max(products))
 
