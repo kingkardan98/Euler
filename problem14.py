@@ -14,12 +14,13 @@ def main():
     for i in numbers:
         if i == 10**6:
             break
+        j = i
         steps = 0
         while i != 1:
             i = collatzer(i)
             steps += 1
         if steps > maxSteps:
-            maxNum = i
+            maxNum = j
             maxSteps = steps
     print(maxNum)
 
