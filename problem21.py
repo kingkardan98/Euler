@@ -2,22 +2,22 @@ import math
 
 def d(n):
     divSum = 0
-    if n == 1:
-        return 1
-    if n == 2:
-        return 3
-    for i in range(1, int(math.sqrt(n)) + 1):
+    for i in range(2, int(math.sqrt(n) + 1)):
         if n % i == 0:
             divSum += i 
-            divSum += (n//i)
-    return divSum - n
+            if i != n // i:
+                divSum += n // i
+    return divSum + 1
 
 divSums = []
-amicable = []
-for n1 in range(10001):
-    divSums.append(d(n1))
-    print(d(n1))
+for n in range(10001):
+    divSums.append(d(n))
 
-amicable = list(set(amicable))
+amicableSum = 0
 
-print(sum(amicable))
+for i in range(len(divSums)):
+    for j in range(len(divSums)):
+        if divSums[i] == j and divSums[j] == i and i < j:
+            amicableSum += i + j
+
+print(amicableSum)
