@@ -24,10 +24,10 @@ for i in allNumbers:
         abundant.append(i)
 
 # Let's get the range of all numbers and remove all the sums of two abundant numbers.
+summation = 0
 for n in abundant:
     for m in abundant[n:]:
-        if n+m in allNumbers:
-            print((n,m))
-            allNumbers.remove(n+m)
+        if not n+m in allNumbers:
+            summation += n+m
 
-print(sum(allNumbers))
+print(summation)
