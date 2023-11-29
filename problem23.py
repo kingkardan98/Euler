@@ -24,13 +24,12 @@ for i in allNumbers:
         abundant.append(i)
 
 # Let's get the range of all numbers and remove all the sums of two abundant numbers.
-# Sum must absolutely be smaller than Sum(1^28123) n = 395465626
-# First result:                                        26190629   (Plausible but incorrect)
-
+summation = 0
 for n in abundant:
-    toRemove = [n+m for m in abundant if (m >= n and n+m < 28124)]
-    for el in toRemove:
-        if el in allNumbers:
-            pass
+    for m in abundant[n:]:
+        if n+m in allNumbers:
+            print((n,m))
+            allNumbers.remove(n+m)
+            
 
-print(sum(allNumbers))
+print(summation)
