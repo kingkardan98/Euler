@@ -1,33 +1,31 @@
-# If a product is pandigital, it must be
-# comprised of nine digits total.
+# A number is n-pandigital if it uses the digits 1-n exactly once.
+# Find the sum of all products such that the identity M1 x M2 = P
+# is 9-pandigital.
 
-def isPandigital(multiplicand, multiplier, result):
-    strOperands = str(multiplicand) + str(multiplier) + str(result)
+# C1: the biggest 9-pandigital number is 987654321.
+# This means we effectively check up to this number. This is the upper limit.
 
-    if len(strOperands) > 9 or '0' in strOperands:
+def isPandigital(product, factor1, factor2):
+    id_str = str(product) + str(factor1) + str(factor2)
+
+    if len(id_str) != 9:
         return False
-    
-    strOperands = ''.join(sorted(strOperands, key=str.lower))
-    if strOperands == '123456789':
-        return True
-    
-    return False
 
-products = []
-multiplicand = 39
-multiplier = 186
+    digits = set(id_str)
+        
+    return digits == set('123456789')
 
 
-while multiplier <= 999:
-    result = multiplicand * multiplier
+def main():
+    pansum = set()
 
-    if isPandigital(multiplicand, multiplier, result) and (not result in products):
-        products.append(result)
+    for factor1 in range(1, 100):
+        for factor2 in range(100, 10000 // factor1):
+            product = factor1 * factor2
+            if isPandigital(product=product, factor1=factor1, factor2=factor2):
+                pansum.add(product)
 
-    multiplicand += 1
+    print(sum(pansum))
 
-    if multiplicand == 999:
-        multiplier += 1
-        multiplicand = 1
-
-print(sum(products))
+if __name__ == '__main__':
+    main()
