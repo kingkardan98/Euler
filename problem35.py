@@ -24,13 +24,13 @@ def sieveOfEratosthenes(n):
     # since for every n, if p is the smallest prime divisor of n, it is true that
     # n = p * r >= p * p = p^2. So:
 
-    while (p * p <= UPPER_LIMIT):
+    while (p * p <= n):
         # If primes[p] is True, then it's prime
         if prime_table[p]:
             # Delete all multiples, starting from p^2, since all
             # smaller numbers have already been taken care of.
             # The step is p, so we're virtually multiplying.
-            for i in range(p * p, UPPER_LIMIT + 1, p):
+            for i in range(p * p, n + 1, p):
                 prime_table[i] = False
         p += 1
 
