@@ -8,7 +8,7 @@ UPPER_LIMIT = 1000000
 
 def sieveOfEratosthenes(n):
     # Table of all numbers up to a million
-    prime_table = [True for i in range(UPPER_LIMIT + 1)]
+    prime_table = [True for i in range(n + 1)]
 
     # 0 and 1 are not primes.
     prime_table[0] = False
