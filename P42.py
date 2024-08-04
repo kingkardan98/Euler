@@ -54,7 +54,7 @@ def isTriangular(number):
 def main():
     count_triangulars = 0
 
-    word_list = read('0042_words.txt')
+    word_list = read('P42_aux.txt')
 
     for word in word_list:
         word_value = wordValue(word)

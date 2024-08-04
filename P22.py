@@ -5,7 +5,7 @@ def alphaValue(name):
         score += ord(char) - 96
     return score
 
-file = open('0022_names.txt', 'r')
+file = open('P22_aux.txt', 'r')
 nameDict = dict()
 
 # Extracting all then

@@ -1,7 +1,7 @@
 # With this file extraction method, problem 67 is trivial.
 
 data = []
-file = open("0067_triangle.txt", "r")
+file = open("P67_aux.txt", "r")
 for row in file:
     row = [int(el) for el in row.split()]
     data.append(row)
