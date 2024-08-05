@@ -1,4 +1,5 @@
 LIMIT = 100
+# LIMIT = 10000, pushed up here and... OverflowError
 
 def generateFactorialTable(n):
     factorial_list = [1, 1] # 0! = 1, 1! = 1
