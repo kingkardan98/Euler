@@ -1,3 +1,5 @@
+from math import isqrt
+
 def sieveOfEratosthenes(n):
     # Table of all numbers up to a million
     prime_table = [True for i in range(n + 1)]
@@ -5,9 +7,6 @@ def sieveOfEratosthenes(n):
     # 0 and 1 are not primes.
     prime_table[0] = False
     prime_table[1] = False
-
-    # The list of the actual numbers. Will fill later.
-    primes = []
 
     # Prime factor to clear with
     p = 2
@@ -27,8 +26,20 @@ def sieveOfEratosthenes(n):
         p += 1
 
     # Create the list of prime numbers
-    for i in range(len(prime_table)):
-        if prime_table[i]:
-            primes.append(i)
+    primes = {i for i in range(n+1) if prime_table[i]}
 
     return primes
+
+def sieveOfErathostenesYield(limit):
+    sieve = [True] * (limit + 1)
+    sieve[0] = sieve[1] = False
+
+    for i in range(2, isqrt(limit) + 1):
+        if sieve[i]:
+            for j in range(i * i, limit + 1, i):
+                sieve[j] = False
+                
+    for num in range(2, limit + 1):
+        if sieve[num]:
+            yield num
+
