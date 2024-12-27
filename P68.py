@@ -11,6 +11,20 @@
 from itertools import permutations
 from tqdm import tqdm
 
+def fillPentagon(pentagon, perm):
+    pentagon[0][0] = perm[0]
+    pentagon[0][1] = pentagon[4][2] = perm[1]
+    pentagon[0][2] = pentagon[1][1] = perm[2]
+    pentagon[1][0] = perm[3]
+    pentagon[1][2] = pentagon[2][1] = perm[4]
+    pentagon[2][0] = perm[5]
+    pentagon[2][2] = pentagon[3][1] = perm[6]
+    pentagon[3][0] = perm[7]
+    pentagon[3][2] = pentagon[4][1] = perm[8]
+    pentagon[4][0] = perm[9]
+
+    return pentagon
+
 def isMagic(ngon):
     sums = []
     for line in ngon:
@@ -36,23 +50,14 @@ def sortedMagic(ngon):
     return sortedNgon
 
 def magicPentagon():
-    combs = permutations([x for x in range(1, 11)], 10)
+    perms = permutations([x for x in range(1, 11)], 10)
     magics = []
     tracker = tqdm(total=3628800, desc="Checking magic 5-gons")
-    for comb in combs:
+    for perm in perms:
         tracker.update(1)
         pentagon = [[0,0,0], [0,0,0], [0,0,0], [0,0,0], [0,0,0]]
         # Filling the pentagon manually, probably easier.
-        pentagon[0][0] = comb[0]
-        pentagon[0][1] = pentagon[4][2] = comb[1]
-        pentagon[0][2] = pentagon[1][1] = comb[2]
-        pentagon[1][0] = comb[3]
-        pentagon[1][2] = pentagon[2][1] = comb[4]
-        pentagon[2][0] = comb[5]
-        pentagon[2][2] = pentagon[3][1] = comb[6]
-        pentagon[3][0] = comb[7]
-        pentagon[3][2] = pentagon[4][1] = comb[8]
-        pentagon[4][0] = comb[9]
+        pentagon = fillPentagon(pentagon, perm)
 
         # This way we have filled the pentagon, now we need to check if it's a valid magic 5-gon.
         if isMagic(pentagon):
