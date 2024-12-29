@@ -14,21 +14,29 @@
 
 from recurring_functions.MagicNgons import fillNgon, isMagic, sortedMagic, magicNgon
 
-SIZE = 3
-LENGTH = 9
+SIZE = 5
 
 def main():
-    maxLength = 0
+    possibleLengths = []
+    strings = []
     magics = magicNgon(SIZE)
     for magic in magics:
         string = ''
         for line in magic:
             for i in range(len(line)):
                 string = string + str(line[i])
-                if len(string) == LENGTH:
-                    if int(string) > maxLength:
-                        maxLength = int(string)
-    print("The maximum {}-long string created from the set describing a magic {}-gon is {}".format(LENGTH, SIZE, maxLength))
+        strings.append(string)
+        if len(string) not in possibleLengths:
+            possibleLengths.append(len(string))
+
+    possibleLengths.sort()
+    for length in possibleLengths:
+        maxString = 0
+        for string in strings:
+            if len(string) == length:
+                if int(string) > maxString:
+                    maxString = int(string)
+        print("The maximum {}-long string created from the set describing a magic {}-gon is {}".format(length, SIZE, maxString))
 
 if __name__ == '__main__':
     main()
