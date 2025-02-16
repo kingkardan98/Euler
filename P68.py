@@ -12,7 +12,7 @@
 
 # EDIT 3: Done! Completely generalized the program! And moved the function to the dedicated file for later use
 
-from recurring_functions.MagicNgons import fillNgon, isMagic, sortedMagic, magicNgon
+from recurring_functions.MagicNgons import magicNgon
 
 SIZE = 5
 
