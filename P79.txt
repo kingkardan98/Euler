@@ -1,0 +1,8 @@
+Looking at the keylog.txt file, and through the intuition on martin-ueding.de,
+we can see that only the digits 0,1,2,3,6,7,8,9 are used. 8 out of the 10 digits.
+
+If the digits are always asked in order, and we assume there are no repetitions,
+a graph comes to life, as shown in P79.png
+
+Since there are 8 digits used, and the graph is 8 layers, it's just as easy as reading
+a path of 8 links.
