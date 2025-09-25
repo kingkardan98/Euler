@@ -1,33 +1,24 @@
-# Monopoly with 4-sided dies: what are the three most popular squares?
-# I assign each cell a number, starting from 0 to 39
-
 import random
 from collections import deque
 
 # Set how many faces a die has
-FACES = 6
+FACES = 4
 
 # Set the maximum number of moves in a game
-MAX_MOVES = 1000
+MAX_MOVES = 100000
 
-# Set the maximum number of games to run
-MAX_GAMES = 100
+# Games to be simulated
+GAMES = 100
 
 # Constructing the decks of cards
-CC_CARDS = ["advance to go", "go to jail"]
-CH_CARDS = ["advance to go", "go to jail", 
-            "go to c1", "go to e3",
-            "go to h2", "go to r1",
-            "go to next r", "go to next r",
-            "go to next u", "go back 3 squares"]
-
-CC_CARDS += ["dud"] * 14
-CH_CARDS += ["dud"] * 6
-
-CC_DECK = deque(CC_CARDS)
-CH_DECK = deque(CH_CARDS)
-
-CARDS_LEN = 16
+CC_CARDS = ["advance to go", "go to jail"] + ["dud"] * 14
+CH_CARDS = [
+    "advance to go", "go to jail", 
+    "go to c1", "go to e3",
+    "go to h2", "go to r1",
+    "go to next r", "go to next r",
+    "go to next u", "go back 3 squares"
+] + ["dud"] * 6
 
 # Constructing the board as a dictionary
 cells_list = [
@@ -39,56 +30,40 @@ cells_list = [
 ]
 
 CELLS = {name: idx for idx, name in enumerate(cells_list)}
-
-# Second dictionary, for numerical board exploration
 REVERSE_CELLS = {idx: name for name, idx in CELLS.items()}
+CELLS_NUMBER = len(cells_list)
 
-def die1(n):
-    """Throw die1"""
-    return random.randint(1, n)
-
-def die2(n):
-    """Throw die2"""
+def die(n):
     return random.randint(1, n)
 
 def throw(doublesCounter):
-    """Function that emulates the throw of two FACE-sided dies"""
-    d1 = die1(FACES)
-    d2 = die2(FACES)
-
+    d1 = die(FACES)
+    d2 = die(FACES)
     if d1 == d2:
         doublesCounter += 1
-
+    else:
+        # Rolling non-double resets doubles counter for the usual Monopoly rules
+        doublesCounter = 0
     return d1, d2, doublesCounter
 
 def advance(currentPosition, d1, d2):
-    """Returns the new position of the pawn on the board""" 
-    return (currentPosition + d1 + d2) % 39
+    return (currentPosition + d1 + d2) % CELLS_NUMBER
 
 def draw(deck):
-    """Draws a card from a deck, then places it on the bottom"""
     card = deck.popleft()
     deck.append(card)
     return card
 
 def visited(currentPosition, cellsVisited):
-    """Update the cellsVisited array. Search the etiquette numerically through REVERSE_CELLS"""
     cellsVisited[REVERSE_CELLS[currentPosition]] += 1
     return cellsVisited
 
-def effectCC(currentPosition):
-    """Emulates the drawing of a card on a CC cell"""
-    # Landed on one of the community chest cells. Draw a card and operate accordingly
-    effect = draw(CC_DECK)
-
-    # Analyze first the cases that bring me to jail
+def effectCC(currentPosition, cc_deck):
+    effect = draw(cc_deck)
     if (effect == "advance to go"):
-        # Go to the GO cell and end turn.
         currentPosition = CELLS["GO"]
     elif (effect == "go to jail"):
-        # Go to the JAIL cell and end turn.
         currentPosition = CELLS["JAIL"]
-    
     return currentPosition
 
 def gotoNextR(currentPosition):
@@ -105,14 +80,14 @@ def gotoNextU(currentPosition):
         return CELLS["U1"]
     return CELLS["U2"]
 
-def effectCH(currentPosition):
-    effect = draw(CH_DECK)
-
-    # SUPREME EDGE CASE: currentPosition = CC3 and effect = go back 3,
-    # change the current position and call effectCC
-    if currentPosition == CELLS["CH3"] and effect == "go back 3 squares":
-        # Go back 3 squares and draw a CC card
-        currentPosition = effectCC(currentPosition - 3)
+def effectCH(currentPosition, ch_deck, cc_deck):
+    effect = draw(ch_deck)
+    # If go back 3 squares lands on CC, we must draw from CC deck
+    if effect == "go back 3 squares":
+        currentPosition = (currentPosition - 3) % 40
+        # if that square is a CC, apply CC effect
+        if currentPosition in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
+            currentPosition = effectCC(currentPosition, cc_deck)
     else:
         if effect == "advance to go":
             currentPosition = CELLS["GO"]
@@ -126,68 +101,66 @@ def effectCH(currentPosition):
             currentPosition = gotoNextR(currentPosition)
         elif effect == "go to next u":
             currentPosition = gotoNextU(currentPosition)
-        elif effect == "go back 3 squares":
-            currentPosition -= 3
-        else: 
-            # Got a dud, do nothing
-            pass
+        # other dud cards do nothing
     return currentPosition
 
 def game():
-    """Emulates a MAX_MOVES-moves long game of monopoly"""
-    # Shuffle the 16-card decks
+    # Shuffle and create decks for this game (don't reuse global deques from earlier runs)
     random.shuffle(CC_CARDS)
     random.shuffle(CH_CARDS)
-
-    # Set my pawn at GO (cell 0)
+    cc_deck = deque(CC_CARDS)
+    ch_deck = deque(CH_CARDS)
+    
     currentPosition = CELLS["GO"]
-
-    # Counter to keep track of how many doubles I have rolled
     doublesCounter = 0
-
-    # Set the length of the game
     remainingMoves = MAX_MOVES
 
-    # Create a dictionary to keep track of which cells I visited, and how many times.
-    # I base it on the alredy existing CELLS dictionary, just to not retype the structure.
-    # I then reset each value to 0.
-    cellsVisited = CELLS
-
-    for cell in cellsVisited.keys():
-        cellsVisited[cell] = 0
+    # Create a fresh visited dict
+    cellsVisited = {name: 0 for name in CELLS.keys()}
 
     while remainingMoves > 0:
         d1, d2, doublesCounter = throw(doublesCounter)
         if doublesCounter == 3:
-            # First edge case: I rolled 3 doubles, I immediately go to jail
             currentPosition = CELLS["JAIL"]
-
-            # Reset the doubles counter
             doublesCounter = 0
         else:
-            # The triple double penalty wasn't met, advance.
-            # This doesn't yet give me the condition to register the new cell as visited.
-            # We first need to analyze all edge cases.
-            advance(currentPosition, d1, d2)
-
+            currentPosition = advance(currentPosition, d1, d2)
             if currentPosition == CELLS["G2J"]:
-                # Second edge case: I land on the G2J cell. I go to jail.
                 currentPosition = CELLS["JAIL"]
-
             elif currentPosition in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
-                currentPosition = effectCC(currentPosition)
-
+                currentPosition = effectCC(currentPosition, cc_deck)
             elif currentPosition in [CELLS["CH1"], CELLS["CH2"], CELLS["CH3"]]:
-                # Landed on one of the chance cells. Draw a card.
-                currentPosition = effectCH(currentPosition)
-        
-        # After the turn has ended, and positions have been set, update the cellsVisited array
+                currentPosition = effectCH(currentPosition, ch_deck, cc_deck)
         cellsVisited = visited(currentPosition, cellsVisited)
         remainingMoves -= 1
-    
     return cellsVisited
 
+def getTopThree(cellsVisited):
+    return sorted(cellsVisited, key=cellsVisited.get, reverse=True)[:3]
+
 def main():
-    print(game())
+    bestCells = dict()
+    for i in range(GAMES):
+        cellsVisited = game()
+        topThree = getTopThree(cellsVisited)
+        for j in range(len(topThree)):
+            if topThree[j] not in bestCells.keys():
+                bestCells[topThree[j]] = cellsVisited[topThree[j]]
+            else:
+                bestCells[topThree[j]] += cellsVisited[topThree[j]]
+
+        if i % 10 == 0:
+            print("Games played: {}".format(i))
+
+    # Played all the games. Display time
+    print("Best cells overall:")
+    bestCellsTopThree = getTopThree(bestCells)
+    b1 = CELLS[bestCellsTopThree[0]]
+    b2 = CELLS[bestCellsTopThree[1]]
+    b3 = CELLS[bestCellsTopThree[2]]
+    for el in bestCellsTopThree:
+        print("- {}: {} ({}%)".format(el, bestCells[el], bestCells[el] / (GAMES * MAX_MOVES) * 100))
+    print("Six-digit modal string: {}{}{}".format(b1, b2, b3))
+    return
 
 main()
