@@ -10,7 +10,7 @@ def main():
     # which means I don't really need to check every couple possible: main(m, n) = main(n, m)
     # I then augment m and n accordingly, and check if the forumla turns up to be more than 2 * 10^6
     # If it is, I take the last value and current value, check which one is nearer to 2 million and save it.
-    # At the end, I'll have my area.
+    # I printed each change in delta, son when it stops it's a good first candidate to try.
     sum = 0
     delta = VALUE
     candidate_sum = 0
