@@ -91,10 +91,46 @@ def effectCC(currentPosition):
     
     return currentPosition
 
+def gotoNextR(currentPosition):
+    if currentPosition < CELLS["R1"]:
+        return CELLS["R1"]
+    elif currentPosition < CELLS["R2"]:
+        return CELLS["R2"]
+    elif currentPosition < CELLS["R3"]:
+        return CELLS["R3"]
+    return CELLS["R4"]
+
+def gotoNextU(currentPosition):
+    if currentPosition < CELLS["U1"]:
+        return CELLS["U1"]
+    return CELLS["U2"]
+
 def effectCH(currentPosition):
     effect = draw(CH_DECK)
 
-    # SUPREME EDGE CASE: currentPosition = CC3 and effect = go back 3
+    # SUPREME EDGE CASE: currentPosition = CC3 and effect = go back 3,
+    # change the current position and call effectCC
+    if currentPosition == CELLS["CH3"] and effect == "go back 3 squares":
+        # Go back 3 squares and draw a CC card
+        currentPosition = effectCC(currentPosition - 3)
+    else:
+        if effect == "advance to go":
+            currentPosition = CELLS["GO"]
+        elif effect == "go to jail":
+            currentPosition = CELLS["JAIL"]
+        elif effect == "go to c1":
+            currentPosition = CELLS["C1"]
+        elif effect == "go to e3":
+            currentPosition = CELLS["E3"]
+        elif effect == "go to next r":
+            currentPosition = gotoNextR(currentPosition)
+        elif effect == "go to next u":
+            currentPosition = gotoNextU(currentPosition)
+        elif effect == "go back 3 squares":
+            currentPosition -= 3
+        else: 
+            # Got a dud, do nothing
+            pass
     return currentPosition
 
 def game():
@@ -148,9 +184,10 @@ def game():
         # After the turn has ended, and positions have been set, update the cellsVisited array
         cellsVisited = visited(currentPosition, cellsVisited)
         remainingMoves -= 1
-
+    
+    return cellsVisited
 
 def main():
-    return
+    print(game())
 
-game()
+main()
