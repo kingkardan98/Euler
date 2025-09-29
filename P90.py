@@ -46,17 +46,12 @@ def is_valid_pair(cubeA, cubeB):
 
 all_cubes = list(combinations(range(10), 6))
 
-def yield_valid_pairs(ordered_pairs=False):
-    if ordered_pairs:
-        for a, b in product(all_cubes, repeat=2):
-            if is_valid_pair(a, b):
-                yield (a, b)
-    else:
-        for a, b in combinations_with_replacement(all_cubes, 2):
-            if is_valid_pair(a, b):
-                yield (a, b)
+def yield_valid_pairs():
+    for a, b in combinations_with_replacement(all_cubes, 2):
+        if is_valid_pair(a, b):
+            yield (a, b)
 
 # Example usage:
-valid_pairs = list(yield_valid_pairs(ordered_pairs=False))
+valid_pairs = list(yield_valid_pairs())
 print("Number of unordered valid pairs:", len(valid_pairs))
 
