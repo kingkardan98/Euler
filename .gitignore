@@ -55,3 +55,4 @@ docs/_build/
 
 # .venv folder
 .venv/
+euler/
