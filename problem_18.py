@@ -1,20 +1,23 @@
 # With this file extraction method, problem 67 is trivial.
 
-data = []
-file = open("P18_aux.txt", "r")
-for row in file:
-    row = [int(el) for el in row.split()]
-    data.append(row)
+def data_fetch(filename):
+    data = []
+    file = open(filename, "r")
+    for row in file:
+        row = [int(el) for el in row.split()]
+        data.append(row)
 
-x = len(data) - 1
+    x = len(data) - 1
 
-while x > 0:
-    for y in range(x):
-        # Every element gets summed with its children
-        data[x-1][y] += max([data[x][y], data[x][y+1]])
-    # We remove the row and go to the one above it
-    data.pop(x)
-    x -= 1
+    while x > 0:
+        for y in range(x):
+            # Every element gets summed with its children
+            data[x-1][y] += max([data[x][y], data[x][y+1]])
+        # We remove the row and go to the one above it
+        data.pop(x)
+        x -= 1
 
-# This way, the sum is stored at the top
-print(data[0][0])
+    # This way, the sum is stored at the top
+    return data[0][0]
+
+print(data_fetch("problem_18_aux.txt"))

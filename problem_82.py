@@ -1,7 +1,7 @@
 COLUMNS = 80
 ROWS = 80
 
-def getMatrixFromFile(file):
+def get_matrix_from_file(file):
     matrix = []
     for line in file.readlines():
         row = [int(el) for el in line.strip().split(',')]
@@ -10,7 +10,7 @@ def getMatrixFromFile(file):
 
 def main():
     with open("P82.txt", "r") as file:
-        matrix = getMatrixFromFile(file)
+        matrix = get_matrix_from_file(file)
 
     # dp[row][col] = minimal path sum starting at (row, col) to any rightmost cell
     dp = [[0]*COLUMNS for _ in range(ROWS)]
@@ -34,8 +34,8 @@ def main():
             dp[row][col] = min(dp[row][col], matrix[row][col] + dp[row + 1][col])
 
     # The minimum path sum is the minimum value in the first column
-    minSum = min(dp[row][0] for row in range(ROWS))
-    print("Minimum Path Sum:", minSum)
+    min_sum = min(dp[row][0] for row in range(ROWS))
+    print("Minimum Path Sum:", min_sum)
 
 if __name__ == "__main__":
     main()

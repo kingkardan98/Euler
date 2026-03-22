@@ -1,7 +1,7 @@
 number = str(2**1000)
 
-sum = 0
+S = 0
 for digit in number:
-    sum += int(digit)
+    S += int(digit)
 
-print(sum)
+print(S)

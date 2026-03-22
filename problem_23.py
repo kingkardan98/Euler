@@ -1,44 +1,44 @@
 import math
 
-def getDivisors(num):
+def get_divisors(num):
     if num==1:
         return 1
     n = math.ceil(math.sqrt(num))
-    total = 1
+    div_total = 1
     divisor = 2
-    while (divisor < n):
-        if (num%divisor == 0):
-            total += divisor
-            total += num//divisor
+    while divisor < n:
+        if num%divisor == 0:
+            div_total += divisor
+            div_total += num // divisor
         divisor+=1
     if n**2==num:
-        total+=n
-    return total
+        div_total+=n
+    return div_total
 
 
-def isAbundant(num):
-    if (getDivisors(num) > num):
+def is_abundant(num):
+    if get_divisors(num) > num:
         return True
     else:
         return False
 
-abundentNums = []
+abundant_nums = []
 for x in range (0,28124):
-    if (isAbundant(x)):
-        abundentNums.append(x)
-del abundentNums[0]
+    if is_abundant(x):
+        abundant_nums.append(x)
+del abundant_nums[0]
 
 sums = [0]*28124
-for x in range (0, len(abundentNums)):
-    for y in range (x, len(abundentNums)):
-            sumOf2AbundantNums = abundentNums[x]+abundentNums[y]
-            if (sumOf2AbundantNums<= 28123):
-                if (sums[sumOf2AbundantNums] == 0):
-                    sums[sumOf2AbundantNums] = sumOf2AbundantNums
+for x in range (0, len(abundant_nums)):
+    for y in range (x, len(abundant_nums)):
+            sum_of2_abundant_nums = abundant_nums[x] + abundant_nums[y]
+            if sum_of2_abundant_nums<= 28123:
+                if sums[sum_of2_abundant_nums] == 0:
+                    sums[sum_of2_abundant_nums] = sum_of2_abundant_nums
 
 total = 0
 for x in range (1,len(sums)):
-    if (sums[x] == 0):
+    if sums[x] == 0:
         total +=x
 
 print('\n', total)

@@ -36,73 +36,73 @@ CELLS_NUMBER = len(cells_list)
 def die(n):
     return random.randint(1, n)
 
-def throw(doublesCounter):
+def throw(doubles_counter):
     d1 = die(FACES)
     d2 = die(FACES)
     if d1 == d2:
-        doublesCounter += 1
+        doubles_counter += 1
     else:
         # Rolling non-double resets doubles counter for the usual Monopoly rules
-        doublesCounter = 0
-    return d1, d2, doublesCounter
+        doubles_counter = 0
+    return d1, d2, doubles_counter
 
-def advance(currentPosition, d1, d2):
-    return (currentPosition + d1 + d2) % CELLS_NUMBER
+def advance(current_position, d1, d2):
+    return (current_position + d1 + d2) % CELLS_NUMBER
 
 def draw(deck):
     card = deck.popleft()
     deck.append(card)
     return card
 
-def visited(currentPosition, cellsVisited):
-    cellsVisited[REVERSE_CELLS[currentPosition]] += 1
-    return cellsVisited
+def visited(current_position, cells_visited):
+    cells_visited[REVERSE_CELLS[current_position]] += 1
+    return cells_visited
 
-def effectCC(currentPosition, cc_deck):
+def effect_cc(current_position, cc_deck):
     effect = draw(cc_deck)
-    if (effect == "advance to go"):
-        currentPosition = CELLS["GO"]
-    elif (effect == "go to jail"):
-        currentPosition = CELLS["JAIL"]
-    return currentPosition
+    if effect == "advance to go":
+        current_position = CELLS["GO"]
+    elif effect == "go to jail":
+        current_position = CELLS["JAIL"]
+    return current_position
 
-def gotoNextR(currentPosition):
-    if currentPosition < CELLS["R1"]:
+def goto_next_r(current_position):
+    if current_position < CELLS["R1"]:
         return CELLS["R1"]
-    elif currentPosition < CELLS["R2"]:
+    elif current_position < CELLS["R2"]:
         return CELLS["R2"]
-    elif currentPosition < CELLS["R3"]:
+    elif current_position < CELLS["R3"]:
         return CELLS["R3"]
     return CELLS["R4"]
 
-def gotoNextU(currentPosition):
-    if currentPosition < CELLS["U1"]:
+def goto_next_u(current_position):
+    if current_position < CELLS["U1"]:
         return CELLS["U1"]
     return CELLS["U2"]
 
-def effectCH(currentPosition, ch_deck, cc_deck):
+def effect_ch(current_position, ch_deck, cc_deck):
     effect = draw(ch_deck)
-    # If go back 3 squares lands on CC, we must draw from CC deck
+    # If we go back 3 squares lands on CC, we must draw from CC deck
     if effect == "go back 3 squares":
-        currentPosition = (currentPosition - 3) % 40
+        current_position = (current_position - 3) % 40
         # if that square is a CC, apply CC effect
-        if currentPosition in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
-            currentPosition = effectCC(currentPosition, cc_deck)
+        if current_position in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
+            current_position = effect_cc(current_position, cc_deck)
     else:
         if effect == "advance to go":
-            currentPosition = CELLS["GO"]
+            current_position = CELLS["GO"]
         elif effect == "go to jail":
-            currentPosition = CELLS["JAIL"]
+            current_position = CELLS["JAIL"]
         elif effect == "go to c1":
-            currentPosition = CELLS["C1"]
+            current_position = CELLS["C1"]
         elif effect == "go to e3":
-            currentPosition = CELLS["E3"]
+            current_position = CELLS["E3"]
         elif effect == "go to next r":
-            currentPosition = gotoNextR(currentPosition)
+            current_position = goto_next_r(current_position)
         elif effect == "go to next u":
-            currentPosition = gotoNextU(currentPosition)
+            current_position = goto_next_u(current_position)
         # other dud cards do nothing
-    return currentPosition
+    return current_position
 
 def game():
     # Shuffle and create decks for this game (don't reuse global deques from earlier runs)
@@ -111,55 +111,55 @@ def game():
     cc_deck = deque(CC_CARDS)
     ch_deck = deque(CH_CARDS)
     
-    currentPosition = CELLS["GO"]
-    doublesCounter = 0
-    remainingMoves = MAX_MOVES
+    current_position = CELLS["GO"]
+    doubles_counter = 0
+    remaining_moves = MAX_MOVES
 
     # Create a fresh visited dict
-    cellsVisited = {name: 0 for name in CELLS.keys()}
+    cells_visited = {name: 0 for name in CELLS.keys()}
 
-    while remainingMoves > 0:
-        d1, d2, doublesCounter = throw(doublesCounter)
-        if doublesCounter == 3:
-            currentPosition = CELLS["JAIL"]
-            doublesCounter = 0
+    while remaining_moves > 0:
+        d1, d2, doubles_counter = throw(doubles_counter)
+        if doubles_counter == 3:
+            current_position = CELLS["JAIL"]
+            doubles_counter = 0
         else:
-            currentPosition = advance(currentPosition, d1, d2)
-            if currentPosition == CELLS["G2J"]:
-                currentPosition = CELLS["JAIL"]
-            elif currentPosition in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
-                currentPosition = effectCC(currentPosition, cc_deck)
-            elif currentPosition in [CELLS["CH1"], CELLS["CH2"], CELLS["CH3"]]:
-                currentPosition = effectCH(currentPosition, ch_deck, cc_deck)
-        cellsVisited = visited(currentPosition, cellsVisited)
-        remainingMoves -= 1
-    return cellsVisited
+            current_position = advance(current_position, d1, d2)
+            if current_position == CELLS["G2J"]:
+                current_position = CELLS["JAIL"]
+            elif current_position in [CELLS["CC1"], CELLS["CC2"], CELLS["CC3"]]:
+                current_position = effect_cc(current_position, cc_deck)
+            elif current_position in [CELLS["CH1"], CELLS["CH2"], CELLS["CH3"]]:
+                current_position = effect_ch(current_position, ch_deck, cc_deck)
+        cells_visited = visited(current_position, cells_visited)
+        remaining_moves -= 1
+    return cells_visited
 
-def getTopThree(cellsVisited):
-    return sorted(cellsVisited, key=cellsVisited.get, reverse=True)[:3]
+def get_top_three(cells_visited):
+    return sorted(cells_visited, key=cells_visited.get, reverse=True)[:3]
 
 def main():
-    bestCells = dict()
+    best_cells = dict()
     for i in range(GAMES):
-        cellsVisited = game()
-        topThree = getTopThree(cellsVisited)
-        for j in range(len(topThree)):
-            if topThree[j] not in bestCells.keys():
-                bestCells[topThree[j]] = cellsVisited[topThree[j]]
+        cells_visited = game()
+        top_three = get_top_three(cells_visited)
+        for j in range(len(top_three)):
+            if top_three[j] not in best_cells.keys():
+                best_cells[top_three[j]] = cells_visited[top_three[j]]
             else:
-                bestCells[topThree[j]] += cellsVisited[topThree[j]]
+                best_cells[top_three[j]] += cells_visited[top_three[j]]
 
         if i % 10 == 0:
             print("Games played: {}".format(i))
 
     # Played all the games. Display time
     print("Best cells overall:")
-    bestCellsTopThree = getTopThree(bestCells)
-    b1 = CELLS[bestCellsTopThree[0]]
-    b2 = CELLS[bestCellsTopThree[1]]
-    b3 = CELLS[bestCellsTopThree[2]]
-    for el in bestCellsTopThree:
-        print("- {}: {} ({}%)".format(el, bestCells[el], bestCells[el] / (GAMES * MAX_MOVES) * 100))
+    best_cells_top_three = get_top_three(best_cells)
+    b1 = CELLS[best_cells_top_three[0]]
+    b2 = CELLS[best_cells_top_three[1]]
+    b3 = CELLS[best_cells_top_three[2]]
+    for el in best_cells_top_three:
+        print("- {}: {} ({}%)".format(el, best_cells[el], best_cells[el] / (GAMES * MAX_MOVES) * 100))
     print("Six-digit modal string: {}{}{}".format(b1, b2, b3))
     return
 

@@ -1,29 +1,27 @@
-def alphaValue(name):
-    score = 0
+def calculate_name_score(name):
+    total = 0
     for char in name.lower():
-        # Since the Unicode of a is 97, we subtract 96
-        score += ord(char) - 96
-    return score
+        # Since the Unicode of 'a' is 97, subtract 96
+        total += ord(char) - 96
+    return total
 
-file = open('P22_aux.txt', 'r')
-nameDict = dict()
 
-# Extracting all then
-for text in file:
-    nameList = text.split(',')
+with open('P22_aux.txt', 'r') as file:
+    for line in file:
+        raw_names = line.split(',')
 
-# Stripping the names of all the double quotes
-tempNameList = []
-for name in nameList:
-    name = name.replace('"', '')
-    tempNameList.append(name)
+# Remove double quotes from names
+cleaned_names = []
+for raw_name in raw_names:
+    cleaned_name = raw_name.replace('"', '')
+    cleaned_names.append(cleaned_name)
 
-# Finalizing the list and sorting it alphabetically
-nameList = tempNameList
-nameList.sort()
+# Sort names alphabetically
+cleaned_names.sort()
 
-# Calculating the score
-totalScore = 0
-for i in range(len(nameList)):
-    totalScore += alphaValue(nameList[i]) * (i+1)
-print(totalScore)
+# Calculate total score
+total_score = 0
+for index in range(len(cleaned_names)):
+    total_score += calculate_name_score(cleaned_names[index]) * (index + 1)
+
+print(total_score)

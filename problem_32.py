@@ -5,7 +5,7 @@
 # C1: the biggest 9-pandigital number is 987654321.
 # This means we effectively check up to this number. This is the upper limit.
 
-def isPandigital(product, factor1, factor2):
+def is_pandigital(product, factor1, factor2):
     id_str = str(product) + str(factor1) + str(factor2)
 
     if len(id_str) != 9:
@@ -22,7 +22,7 @@ def main():
     for factor1 in range(1, 100):
         for factor2 in range(100, 10000 // factor1):
             product = factor1 * factor2
-            if isPandigital(product=product, factor1=factor1, factor2=factor2):
+            if is_pandigital(product=product, factor1=factor1, factor2=factor2):
                 pansum.add(product)
 
     print(sum(pansum))

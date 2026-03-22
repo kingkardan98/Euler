@@ -17,7 +17,7 @@ from recurring_functions.MagicNgons import magic_ngon
 SIZE = 5
 
 def main():
-    possibleLengths = []
+    possible_lengths = []
     strings = []
     magics = magic_ngon(SIZE)
     for magic in magics:
@@ -26,17 +26,17 @@ def main():
             for i in range(len(line)):
                 string = string + str(line[i])
         strings.append(string)
-        if len(string) not in possibleLengths:
-            possibleLengths.append(len(string))
+        if len(string) not in possible_lengths:
+            possible_lengths.append(len(string))
 
-    possibleLengths.sort()
-    for length in possibleLengths:
-        maxString = 0
+    possible_lengths.sort()
+    for length in possible_lengths:
+        max_string = 0
         for string in strings:
             if len(string) == length:
-                if int(string) > maxString:
-                    maxString = int(string)
-        print("The maximum {}-long string created from the set describing a magic {}-gon is {}".format(length, SIZE, maxString))
+                if int(string) > max_string:
+                    max_string = int(string)
+        print("The maximum {}-long string created from the set describing a magic {}-gon is {}".format(length, SIZE, max_string))
 
 if __name__ == '__main__':
     main()

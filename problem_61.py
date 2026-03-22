@@ -17,14 +17,14 @@
 
 # We can remove all number that end with 00, 01, 02..., 09.
 # Those are 10 numbers every 100.
-# A sizeable dent: 88*53*47*44*40*30 = 1.15741824 × 10^10. 2 hours instead of 6, good!
+# A sizable dent: 88*53*47*44*40*30 = 1.15741824 × 10^10. 2 hours instead of 6, good!
 
 # Numbers that appear in our list now have the following properties by design:
 # - polygonal
 # - bigger than 1000 (4 digits)
 # - not ending with 00, 01, ..., 09 (un-cyclable)
 # - sorted (design of the nested for loop, required by the problem)
-# So it feels like all filters that could be applied have been. We must think outside of the box.
+# So it feels like all filters that could be applied, have been. We must think outside the box.
 
 # I was assuming that the list was ordered because the n-th n-number is always smaller than the n-th n+1-number.
 # But, for example, the 30th triangular number has 3 digits, the 30th octagonal is four-digits long.
@@ -46,7 +46,7 @@ def isSorted(lst):
     return lst == lst.sort()
 
 def isCyclic(lst):
-    # Checks directly with integers if the last two digits and the first two digits are the same
+    # Checks directly with integers if the last two digits and the first two digits are the same
     for i in range(len(lst) - 1):
         current_end = lst[i] % 100  # Last two digits
         next_start = lst[i + 1] // 100  # First two digits

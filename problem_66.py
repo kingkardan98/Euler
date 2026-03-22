@@ -25,16 +25,16 @@ def cf(n):
             convergents.append(an)
     return convergents[:-1]
 
-def cf_inv(cf):
+def cf_inv(c):
     """
     function to calculate the
     simple fraction from the continued
     fraction.
     """
     numerator = 1
-    denominator = cf.pop()
-    while cf:
-        denominator, numerator = denominator*cf.pop() + numerator, denominator
+    denominator = c.pop()
+    while c:
+        denominator, numerator = denominator * c.pop() + numerator, denominator
     return denominator, numerator
 
 # variable to store the largest value 

@@ -1,6 +1,6 @@
 def minimize(roman):
     # RULES
-    # IIIII -> V    OK
+    # IIIII -> V    OK
     # IIII -> IV    OK
     # VIIII -> IX   OK
     # VV -> X       OK
@@ -74,8 +74,8 @@ def main():
             line = line.strip()
             if line == "":
                 continue
-            newRoman = minimize(line)
-            saved = len(line) - len(newRoman)
+            new_roman = minimize(line)
+            saved = len(line) - len(new_roman)
             running_total += saved
     print(running_total)
 

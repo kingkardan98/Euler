@@ -38,12 +38,12 @@ def main():
     all_pandigitals = [number for number in all_pandigitals if (int(number[7])*100 + int(number[8])*10 + int(number[9])) % 17 == 0]
     print("DONE.\n\nAFTER THIS PROCESS THESE ARE THE REMAINING NUMBERS:")
 
-    sum = 0
+    S = 0
     for number in all_pandigitals:
         print(int("".join(number)), end=", ")
-        sum += int("".join(number))
+        S += int("".join(number))
 
-    print("\n\nTHEIR SUM IS", sum)
+    print("\n\nTHEIR SUM IS", S)
 
 if __name__ == '__main__':
     main()

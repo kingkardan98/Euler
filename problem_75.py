@@ -23,8 +23,8 @@ def generate_pythagorean_triples(max_perimeter):
     return triples_count
 
 def main():
-    maxL = 1_500_000
-    triples_count = generate_pythagorean_triples(maxL)
+    maxl = 1_500_000
+    triples_count = generate_pythagorean_triples(maxl)
     
     # Count perimeters that have exactly one triple
     counter = sum(1 for count in triples_count.values() if count == 1)

@@ -1,13 +1,13 @@
 import math
 
-def d(n):
-    divSum = 0
-    for i in range(2, int(math.sqrt(n) + 1)):
-        if n % i == 0:
-            divSum += i 
-            if i != n // i:
-                divSum += n // i
-    return divSum + 1
+def d(num):
+    div_sum = 0
+    for i in range(2, int(math.sqrt(num) + 1)):
+        if num % i == 0:
+            div_sum += i
+            if i != num // i:
+                div_sum += num // i
+    return div_sum + 1
 
 divSums = []
 for n in range(10001):

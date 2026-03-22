@@ -1,8 +1,8 @@
 import math
 
-maxa = 0
-maxb = 0
-maxn = 0
+max_a = 0
+max_b = 0
+max_n = 0
 
 def isPrime(n):
     if n < 0:
@@ -18,9 +18,9 @@ for a in range(-999, 1000):
         n = 0
         while isPrime(quadratic(n)):
             n += 1
-        if n > maxn:
-            maxa = a
-            maxb = b
-            maxn = n
+        if n > max_n:
+            max_a = a
+            max_b = b
+            max_n = n
 
-print(maxa*maxb, maxa, maxb)
+print(max_a * max_b, max_a, max_b)

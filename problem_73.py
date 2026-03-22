@@ -1,12 +1,12 @@
 from recurring_functions.Totatives import coprime_set
 from tqdm import tqdm
 
-max = 12000
+M = 12000
 frac_counter = 0
-tracker = tqdm(total=max)
+tracker = tqdm(total=M)
 
 # Loop through the denominators
-for d in range(2, max + 1):
+for d in range(2, M + 1):
     fractions = [(i, d) for i in coprime_set(d)]  # Generate coprime pairs
     for fraction in fractions:
         value = fraction[0] / fraction[1]  # Calculate the fraction value

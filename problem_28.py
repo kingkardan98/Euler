@@ -4,37 +4,39 @@ spiral = [[0 for _ in range(dimension)] for _ in range(dimension)]
 
 originX = originY = (dimension // 2)
 
-def findNewDirection(direction):
-    if direction == 'right':
+def find_new_direction(direct):
+    if direct == 'right':
         return 'down'
-    elif direction == 'down':
+    elif direct == 'down':
         return 'left'
-    elif direction == 'left':
+    elif direct == 'left':
         return 'up'
-    elif direction == 'up':
+    elif direct == 'up':
         return 'right'
+    return None
 
-def step(x,y,direction):
-    if direction == 'right':
-        return x+1, y
-    elif direction == 'down':
-        return x, y+1
-    elif direction == 'left':
-        return x-1, y
-    elif direction == 'up':
-        return x, y-1
+def step(dir_x, dir_y, direct):
+    if direct == 'right':
+        return dir_x + 1, dir_y
+    elif direct == 'down':
+        return dir_x, dir_y + 1
+    elif direct == 'left':
+        return dir_x - 1, dir_y
+    elif direct == 'up':
+        return dir_x, dir_y - 1
+    return None
 
-def write(x,y,value):
-    spiral[y][x] = value
+def write(x_val, y_val, val):
+    spiral[y_val][x_val] = val
 
-def loop(direction, value, x, y, steps):
-    direction = findNewDirection(direction)
+def loop(direct, val, dir_x, dir_y, step_count):
+    direct = find_new_direction(direct)
     try:
-        for i in range(steps):
-            x,y = step(x,y,direction)
-            write(x,y,value)
-            value += 1
-        return direction, value, x, y
+        for j in range(step_count):
+            dir_x,dir_y = step(dir_x, dir_y, direct)
+            write(dir_x, dir_y, val)
+            val += 1
+        return direct, val, dir_x, dir_y
     except IndexError:
             return None, None, None, None
 
@@ -71,25 +73,25 @@ while value < dimension**2:
     try:
         if directionVariation < 2:
             direction, value, x, y = loop(direction, value, x, y, steps)
-            if direction == None:
+            if direction is None:
                 break
             directionVariation += 1
         else:
             steps = steps + 1
             directionVariation = 1
             direction, value, x, y = loop(direction, value, x, y, steps)
-            if direction == None:
+            if direction is None:
                 break
     except IndexError:
         print("Index error at {}, {} coordinates".format(x, y))
         break
 
-# Sprial has been constructed correctly. Nicely done.
+# Spiral has been constructed correctly. Nicely done.
 # Now to sum the diagonals.
-sum = 0
+S = 0
 for i in range(dimension):
-    sum += spiral[i][i] + spiral[i][dimension - i - 1]
+    S += spiral[i][i] + spiral[i][dimension - i - 1]
 
 # Let's remove 1 because the center 1 is counted two times, as the only member of
 # both diagonals.
-print(sum - 1)
+print(S - 1)

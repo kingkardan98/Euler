@@ -7,7 +7,7 @@
 
 # Write the denominator of the product of this four fractions in its lowest terms.
 
-def isCommonDigit(num, den):
+def is_common_digit(num, den):
     # The function returns -1 as an "error" code (no common digits, or trivial example).
 
     # Trivial example: both numbers are multiples of 10.
@@ -25,7 +25,7 @@ def isCommonDigit(num, den):
                 return num_str[i]
     return -1
 
-def makeFraction(num, den):
+def make_fraction(num, den):
     # Simply returns the fraction in string form.
     return str(num) + '/' + str(den)
 
@@ -34,14 +34,14 @@ def main():
     for num in range(10, 100):
         for den in range(11, 100):
             # Find the common digit
-            common_digit = isCommonDigit(num, den)
+            common_digit = is_common_digit(num, den)
 
             # If no common digit, skip to the next iteration
             if common_digit == -1 or common_digit == 0:
                 continue
 
             # Make the fraction strings
-            orig_fraction = makeFraction(num, den)
+            orig_fraction = make_fraction(num, den)
 
             # Remove the common digit (inexperienced simplification)
             new_num = int(str(num).replace(common_digit, '', 1))
@@ -51,10 +51,10 @@ def main():
             if new_den == 0:
                 new_fraction = "2/1" # Purposefully out of bounds value
             else:
-                new_fraction = makeFraction(new_num, new_den)
+                new_fraction = make_fraction(new_num, new_den)
 
             # Check if fractions have the same value, and if they are less than 1
-            if (eval(orig_fraction) == eval(new_fraction) and eval(orig_fraction) < 1):
+            if eval(orig_fraction) == eval(new_fraction) and eval(orig_fraction) < 1:
                 print(orig_fraction)
 
             # Now to a simple calculator calculation!

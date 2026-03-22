@@ -17,10 +17,10 @@
 # x and y are to be chosen from the set {1, 4, 6}
 # a, b, c, d, e are to be chosen from the set {1, 4, 6}. Since two of the digits are "redundant", I'll just choose them randomly from what I have left
 # Then #({0, 2, 3, 8, x, y}, x, y in {1, 4, 6}) = 3
-# And #({5, a, b, c, d, e}) = #({1, 4, 5, 6, d, e}, d, e in {0, 1, ..., 9}) = 36
+# And #({5, a, b, c, d, e}) = #({1, 4, 5, 6, d, e}, d, e in {0, 1, ..., 9}) = 36
 
 # So 36 * 3 = 108. But Euler Project says it's wrong.
-# Is there any way to brute-force it dumbly?
+# Is there any way to brute-force it dumbly?
 
 # If we check "dumbly", there are binom(10, 6) * binom(10, 6) possibilities = 44100. Not even that many.
 # I might want to create all the possible cubes, and check if I can create the squares.
@@ -36,9 +36,9 @@ def expanded_digits(cube):
         s.add(6); s.add(9)
     return s
 
-def is_valid_pair(cubeA, cubeB):
-    a_digits = expanded_digits(cubeA)
-    b_digits = expanded_digits(cubeB)
+def is_valid_pair(cube_a, cube_b):
+    a_digits = expanded_digits(cube_a)
+    b_digits = expanded_digits(cube_b)
     for d1, d2 in SQUARE_DIGITS:
         if not ((d1 in a_digits and d2 in b_digits) or (d1 in b_digits and d2 in a_digits)):
             return False
@@ -49,7 +49,7 @@ all_cubes = list(combinations(range(10), 6))
 def yield_valid_pairs():
     for a, b in combinations_with_replacement(all_cubes, 2):
         if is_valid_pair(a, b):
-            yield (a, b)
+            yield a, b
 
 # Example usage:
 valid_pairs = list(yield_valid_pairs())

@@ -12,7 +12,7 @@ import itertools
 
 LIMIT = 1000000
 
-def searchSet(prime, primes):
+def search_set(prime, primes):
     prime_str = str(prime)
     length = len(prime_str)
 
@@ -48,7 +48,7 @@ def searchSet(prime, primes):
 def main():
     primes = set(sieve_of_eratosthenes(LIMIT))
     for prime in primes:
-        family = searchSet(prime, primes)
+        family = search_set(prime, primes)
         if family is not None:
             for element in family:
                 if element in primes:

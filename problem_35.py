@@ -6,7 +6,7 @@
 
 UPPER_LIMIT = 1000000
 
-def sieveOfEratosthenes(n):
+def sieve_of_eratosthenes(n):
     # Table of all numbers up to a million
     prime_table = [True for i in range(n + 1)]
 
@@ -72,7 +72,7 @@ def isCircular(p, primes):
 
 def main():
     # First step: generate all primes below one million. Easy enough, sieve of Erathostenes.
-    primes = sieveOfEratosthenes(UPPER_LIMIT)
+    primes = sieve_of_eratosthenes(UPPER_LIMIT)
 
     # Second step: for each of the numbers in the list, check which are circular, and count them.
     circularCounter = 0

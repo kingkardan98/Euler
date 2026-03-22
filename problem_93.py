@@ -70,7 +70,7 @@ def expressions_for_fixed_order(nums: List[int]) -> Set[str]:
         results.update(exprs)
     return results
 
-def createExpressions(a: int, b: int, c: int, d: int) -> Set[str]:
+def create_expressions(a: int, b: int, c: int, d: int) -> Set[str]:
     """
     Generate ALL expressions for the four operands, including all permutations of operands,
     all operator choices, and all parenthesizations.
@@ -82,18 +82,18 @@ def createExpressions(a: int, b: int, c: int, d: int) -> Set[str]:
         results.update(expressions_for_fixed_order(list(perm)))
     return results
 
-def checkExpressions(a: int, b: int, c: int, d: int, bracketMap=None) -> Set[str]:
+def check_expressions(a: int, b: int, c: int, d: int, bracket_map=None) -> Set[str]:
     """
     Compatibility wrapper to keep your main() unchanged: previously this took a bracketMap,
     now it's unused; checkExpressions returns the full set of bracketed expressions.
     """
-    return createExpressions(a, b, c, d)
+    return create_expressions(a, b, c, d)
 
 # -----------------------
 # keep your helper for consecutive detection unchanged (but ensure correct filtering)
 # -----------------------
 
-def findConsecutives(results: set) -> int:
+def find_consecutive(results: set) -> int:
     """Return the length of the consecutive run of positive integers starting from 1."""
     if not results:
         return 0
@@ -112,7 +112,7 @@ def findConsecutives(results: set) -> int:
 
 def main():
     # bracketMap parameter is no longer needed but left for compatibility
-    bracketMap = None
+    bracket_map = None
     max_n = 0
     best_tuple = None
 
@@ -120,7 +120,7 @@ def main():
         for b in range(a+1, 10):
             for c in range(b+1, 10):
                 for d in range(c+1, 10):
-                    operations = checkExpressions(a, b, c, d, bracketMap)
+                    operations = check_expressions(a, b, c, d, bracket_map)
                     results = set()
                     for op in operations:
                         try:
@@ -130,7 +130,7 @@ def main():
                         except Exception:
                             continue
                         results.add(val)
-                    consecutives = findConsecutives(results)
+                    consecutives = find_consecutive(results)
                     if consecutives > max_n:
                         max_n = consecutives
                         best_tuple = (a, b, c, d)

@@ -4,7 +4,7 @@ def factorial(n):
     return n * factorial(n-1)
 
 
-def pathGen(n, m):
+def path_gen(n, m):
     # We can represent the set of moves with a string of R's and D's (Rights and Downs)
     # A complete path must contain n R's and m D's.
     # How many such strings exist? How can we create such a string recursively?
@@ -14,4 +14,4 @@ def pathGen(n, m):
     # equates to having completed a path. Since this value represents the probability,
     return ((factorial(n) * factorial(m))/factorial(n+m))**-1
 
-print('{:.0f}'.format(pathGen(20,20)))
+print('{:.0f}'.format(path_gen(20, 20)))

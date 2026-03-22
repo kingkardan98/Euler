@@ -1,21 +1,21 @@
-def isIncreasing(numL):
-    for i in range(1, len(numL)):
-        if numL[i - 1] > numL[i]:
+def is_increasing(num_l):
+    for i in range(1, len(num_l)):
+        if num_l[i - 1] > num_l[i]:
             return False
     return True
 
-def isDecreasing(numL):
-    for i in range(1, len(numL)):
-        if numL[i - 1] < numL[i]:
+def is_decreasing(num_l):
+    for i in range(1, len(num_l)):
+        if num_l[i - 1] < num_l[i]:
             return False
     return True
 
-def isBouncy(num):
-    numL = [c for c in str(num)]
-    if len(numL) < 3:
+def is_bouncy(num):
+    num_l = [c for c in str(num)]
+    if len(num_l) < 3:
         return False
     
-    if isIncreasing(numL) or isDecreasing(numL):
+    if is_increasing(num_l) or is_decreasing(num_l):
         return False
     return True
 
@@ -24,7 +24,7 @@ def main():
     bouncy = 0
     i = 0
     while True:
-        if isBouncy(i):
+        if is_bouncy(i):
             bouncy += 1
             ratio = bouncy / i
         if ratio == 0.99:

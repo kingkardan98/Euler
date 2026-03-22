@@ -15,18 +15,18 @@ def main():
     # The key is exp -> 101, 120, 112
     key = [101, 120, 112]
     key_text = 'exp'
-    textKeyDict = {}
+    text_key_dict = {}
     with open('./P59_aux.txt', 'r') as file:
         text = file.read()
         text = text.split(',')
         for i in range(len(text)):
             text[i] = int(text[i])
 
-    textKeyDict = passKeyOverText(key, text, textKeyDict)
-    sum = 0
-    for e in textKeyDict[key_text]:
-        sum += char_to_ascii(e)
-    print(sum)
+    text_key_dict = passKeyOverText(key, text, text_key_dict)
+    S = 0
+    for e in text_key_dict[key_text]:
+        S += char_to_ascii(e)
+    print(S)
     
 if __name__ == '__main__':
     main()

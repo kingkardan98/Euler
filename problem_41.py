@@ -11,7 +11,7 @@
 # Way too long. How about permutations?
 
 # C3: permutations was way more successful, good.
-# Now we still use the sieve of Erathostenes to get the primes,
+# Now we still use the sieve of Eratosthenes to get the primes,
 # for later ease of use of just looking in the list.
 
 # C4: sieves take up way too much memory. Pivoting to primality checks
@@ -20,13 +20,13 @@
 import itertools
 import math
 
-def generatePermutations(lst):
+def generate_permutations(lst):
     # Yield each permutation as a concatenated integer
     for permutation in itertools.permutations(lst):
         perm_string = ''.join(map(str, permutation))
         yield int(perm_string)
 
-def isPrime(number):
+def is_prime(number):
     if number <= 1:
         return False
     if number == 2:
@@ -39,19 +39,19 @@ def isPrime(number):
     return True
 
 def main():
-    # 9-pandigital primes don't exists, since they're all divisible by 3.
-    # Similarly, 8-pandigital primes don't exists, since they're also divisble by 3.
+    # 9-pandigital primes don't exist, since they're all divisible by 3.
+    # Similarly, 8-pandigital primes don't exist, since they're also divisible by 3.
     # Best option: 7-pandigital
-    digitList = [i for i in range(1, 8)]
+    digit_list = [i for i in range(1, 8)]
     print("Generating pandigitals...")
     
     max_prime = 0
     counter = 0
 
-    for number in generatePermutations(digitList):
+    for number in generate_permutations(digit_list):
         if counter % 1000 == 0 and counter != 0:
             print("- Checked {} numbers".format(counter))
-        if isPrime(number) and number > max_prime:
+        if is_prime(number) and number > max_prime:
             max_prime = number
         counter += 1
 

@@ -1,6 +1,6 @@
 from recurring_functions.Characters import xor, ascii_to_char
 
-def passKeyOverText(key, text, d):
+def pass_key_over_text(key, text, d):
     key_text = ascii_to_char(key[0]) + ascii_to_char(key[1]) + ascii_to_char(key[2])
     xord_text = ''
     for i in range(len(text)):
@@ -14,13 +14,13 @@ def passKeyOverText(key, text, d):
             print("Chiave sospetta: {}".format(key_text))
     return d
 
-def updateKey(key):
+def update_key(key):
     # Case 1: 122 x x -> 97 x+1 x
     if key[0] == 122 and key[1] < 122 and key[2] < 122:
         key[0] = 97
         key[1] += 1
 
-    # Case 2: 122 122 x -> 97 97 x+1
+    # Case 2: 122 122 x -> 97 97 x+1
     elif key[0] == 122 and key[1] == 122 and key[2] < 122:
         key[0] = 97
         key[1] = 97
@@ -40,7 +40,7 @@ def updateKey(key):
 
 def main():
     key = [97, 97, 97]
-    textKeyDict = {}
+    text_key_dict = {}
     with open('./P59_aux.txt', 'r') as file:
         text = file.read()
         text = text.split(',')
@@ -48,9 +48,9 @@ def main():
             text[i] = int(text[i])
 
     while key[2] < 122:
-        textKeyDict = passKeyOverText(key, text, textKeyDict)
+        text_key_dict = pass_key_over_text(key, text, text_key_dict)
 
-        key = updateKey(key)
+        key = update_key(key)
 
         if key == [-1, -1, -1]:
             break

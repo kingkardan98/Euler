@@ -6,10 +6,10 @@ MAX_NUMBER = 10**12
 # INTUITION 1: we just need to check the squares. Up to 10^12, that means only 0.000001% of all the numbers. Not bad.
 # INTUITION 2: numbers in the form 10^x are guaranteed to work. However, it's such a small percentage it's not ideal to check.
 # INTUITION 3: I simply need to exclude all 1-digit numbers, since they don't fit the bill for the problem. I was off by 1.
-# The solutions is 128088830547982
+# The solutions is 128088830547982
                
 
-def isSNumber(number):
+def is_s_number(number):
     number_list = [c for c in str(number)]
     root = math.isqrt(number)
     
@@ -28,7 +28,7 @@ def isSNumber(number):
 def T(lst):
     total = 0
     for i in tqdm.tqdm(lst, desc="Processing", unit="num"):
-        total += i * isSNumber(i)
+        total += i * is_s_number(i)
     return total
 
 def main():

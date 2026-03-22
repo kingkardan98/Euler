@@ -9,15 +9,15 @@
 
 from math import sqrt
 
-def T(n):
+def t(n):
     return n*(n+1) // 2
 
-def isPentagonal(x):
+def is_pentagonal(x):
     # Standard check to see if a number is pentagonal.
     formula = (1 + sqrt(1 + 24*x))/6
     return formula.is_integer()
 
-def isHexagonal(x):
+def is_hexagonal(x):
     # Standard check to see if a number is hexagonal.
     formula = (1 + sqrt(1 + 8*x))/4
     return formula.is_integer()
@@ -27,8 +27,8 @@ def main():
     # triangular number with that property.
     n = 286
     while True:
-        triang = T(n)
-        if isPentagonal(triang) and isHexagonal(triang):
+        triang = t(n)
+        if is_pentagonal(triang) and is_hexagonal(triang):
             print(triang)
             return
         n += 1

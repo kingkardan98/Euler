@@ -23,7 +23,7 @@ def read(file):
     return word_list
 
 # Simple function that calculates the value of a word.
-def wordValue(word):
+def word_value(word):
     value = 0
     for char in word:
         # 64 is the value of capital A. Since all words are capitalized in the file
@@ -35,7 +35,7 @@ def wordValue(word):
 # Start from 1, and work your way up to number.
 # If the landing triangle number is not equal to number,
 # number is not triangular.
-def isTriangular(number):
+def is_triangular(number):
     # If the word is 'A', it's good.
     if number == 1:
         return True
@@ -57,8 +57,8 @@ def main():
     word_list = read('P42_aux.txt')
 
     for word in word_list:
-        word_value = wordValue(word)
-        if isTriangular(word_value):
+        word_val = word_value(word)
+        if is_triangular(word_val):
             count_triangulars += 1
     
     print(count_triangulars)

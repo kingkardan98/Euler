@@ -1,10 +1,10 @@
 import math
 from math import gcd, isqrt
 
-def count_for_M(M, target=None):
+def count_for_m(m, target=None):
     total = 0
-    max_s = 2 * M
-    max_c = M
+    max_s = 2 * m
+    max_c = m
 
     # generate primitive Pythagorean triples via Euclid's formula
     # we need u up to sqrt(max_s + max_c) roughly -- using sqrt(2*M) is safe and small
@@ -58,6 +58,6 @@ def count_for_M(M, target=None):
 count = 0
 m = 1
 while count < 1*10**6:
-    count = count_for_M(m)
+    count = count_for_m(m)
     print("{}: {}".format(m, count))
     m += 1

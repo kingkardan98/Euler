@@ -6,11 +6,11 @@ SET1 = set()
 SET1.add(1)
 MAX = 10**7
 
-def nextInChain(number: int) -> int:
+def next_in_chain(number: int) -> int:
     """Takes all digits of a number, squares each one of them and sums them up"""
     return sum([int(digit)**2 for digit in str(number)])
 
-def isInSet(number: int, checkset: set):
+def is_in_set(number: int, checkset: set):
     """Checks if a number is inside the checkset"""
     return number in checkset
 
@@ -18,21 +18,21 @@ def main():
     collapsing = []
     for i in range(1, MAX + 1):
         start = i
-        currentChain = [start]
+        current_chain = [start]
         n = start                     
         while True:
-            if isInSet(n, SET1):
-                for element in currentChain:
-                    SET1.add(element)
+            if is_in_set(n, SET1):
+                for node in current_chain:
+                    SET1.add(node)
                 break
-            elif isInSet(n, SET89):
-                for element in currentChain:
-                    SET89.add(element)
+            elif is_in_set(n, SET89):
+                for node in current_chain:
+                    SET89.add(node)
                 collapsing.append(start)   
                 break
             else:
-                n = nextInChain(n)
-                currentChain.append(n)
+                n = next_in_chain(n)
+                current_chain.append(n)
         if start % 10 == 0:
             percentage = start / MAX * 100
             print("%.2f" % percentage)

@@ -4,12 +4,12 @@
 
 MAX_LIMIT = 10000
 
-def sieveOfEratosthenes(n):
+def sieve_of_eratosthenes(n):
     prime_table = [True for i in range(n + 1)]
     prime_table[0] = prime_table[1] = False
 
     p = 2
-    while (p * p <= n):
+    while p * p <= n:
         if prime_table[p]:
             for i in range(p * p, n + 1, p):
                 prime_table[i] = False
@@ -32,7 +32,7 @@ def is_composite(n, primes):
     return False
 
 def main():
-    primes = sieveOfEratosthenes(MAX_LIMIT)
+    primes = sieve_of_eratosthenes(MAX_LIMIT)
     
     # Increase the limit to ensure we find the smallest number correctly
     odd_goldbach_numbers = set(goldbach(x, y) for x in primes for y in range(1, MAX_LIMIT + 1) if goldbach(x, y) % 2 == 1)

@@ -16,14 +16,15 @@ from tqdm import tqdm
 MIN = 1_010_101_010
 MAX = 1_389_026_623
 
-def isValidSquare(sq):
+def is_valid_square(sq):
     return bool(re.fullmatch(r'1\d2\d3\d4\d5\d6\d7\d8\d9\d0', str(sq)))
 
 def main():
     pbar = tqdm(range(MAX, MIN, -1), desc="Iterations")
     for i in range(MIN, MAX + 1): # Inverted loop because solution is right at the end
-        if isValidSquare(str(i*i)):
+        if is_valid_square(str(i * i)):
             return i
         pbar.update(1)
+    return None
         
 print(1389019170*1389019170)

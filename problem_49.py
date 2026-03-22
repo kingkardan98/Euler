@@ -16,7 +16,7 @@ import itertools
 
 LIMIT = 10000
 
-def isPermutation(new, original):
+def is_permutation(new, original):
     original_char_list = [e for e in str(original)]
     new_str = str(new)
 
@@ -28,13 +28,13 @@ def isPermutation(new, original):
         return True
     return False
 
-def checkTriplets(primes, step):
+def check_triplets(primes, step):
     for prime in primes:
         second_prime = prime + step
         # I named them second_prime and third_prime, but no one assures me they're primes in the start.
-        if isPermutation(second_prime, prime) and second_prime in primes:
+        if is_permutation(second_prime, prime) and second_prime in primes:
             third_prime = second_prime + step
-            if isPermutation(third_prime, second_prime) and third_prime in primes:
+            if is_permutation(third_prime, second_prime) and third_prime in primes:
                 print("One triplet is: {}, {}, {}, with step {}".format(prime, second_prime, third_prime, step))
         
 
@@ -44,7 +44,7 @@ def main():
 
     step = 1
     while step <= 9999:
-        checkTriplets(primes, step)
+        check_triplets(primes, step)
         step += 1
 
     return

@@ -8,15 +8,15 @@ MAX_PERIMETER = 10**9
 # 2) the sides respect the triangle rule (a <= b + c, b <= a + c, c <= a + b)
 # First thing first, an easy implementation of the triangle inequality
 
-def triangleInequality(a, b, c):
+def triangle_inequality(a, b, c):
     return (a < b + c) and (b < a + c) and (c < a + b)
 
 # The problem asks for the sum of all perimeters of all almost-equilateral triangles, 
 # with maximum perimeter 1 billion, that have integer area. What to do?
 
-def isCompliant(a, b, c):
+def is_compliant(a, b, c):
     """Returns True if the almost-equilateral triangle has integer area and perimeter less or equal than 1 billion"""
-    if not triangleInequality(a, b, c):
+    if not triangle_inequality(a, b, c):
         return False
     perimeter = a + b + c
     if perimeter > MAX_PERIMETER:
@@ -26,31 +26,31 @@ def isCompliant(a, b, c):
         return False
     return True
 
-# At this point, what we need to do is check every possible almost-equilateral triangle
+# At this point, what we need to do is check every possible almost-equilateral triangle
 # Make a generator for that
-def triangleGenerator():
+def triangle_generator():
     a = 1
     while True:
         # Return both possible almost-equilaterals: we'll call the first over an the second under
-        yield ((a, a, a+1), (a, a, a-1))
+        yield (a, a, a+1), (a, a, a-1)
         a += 1
 
 def main():
-    gen = triangleGenerator()
-    sumPerimeter = 0
+    gen = triangle_generator()
+    sum_perimeter = 0
     while True:
-        trOver, trUnder = next(gen)
-        a = trOver[0]
+        tr_over, tr_under = next(gen)
+        a = tr_over[0]
         if a % 1000 == 0:
             print("Misura lato controllato: {}".format(a))
-        if (not isCompliant(*trOver)) and (not isCompliant(*trUnder)):
+        if (not is_compliant(*tr_over)) and (not is_compliant(*tr_under)):
             continue
-        if isCompliant(*trOver):
-            sumPerimeter += sum(trOver)
-        if isCompliant(*trUnder):
-            sumPerimeter += sum(trUnder)
+        if is_compliant(*tr_over):
+            sum_perimeter += sum(tr_over)
+        if is_compliant(*tr_under):
+            sum_perimeter += sum(tr_under)
         if a > MAX_PERIMETER:
             break
-    print(sumPerimeter)
+    print(sum_perimeter)
 
 main()

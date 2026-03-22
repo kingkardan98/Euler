@@ -3,7 +3,7 @@ import heapq
 COLUMNS = 80
 ROWS = 80
 
-def getMatrixFromFile(file):
+def get_matrix_from_file(file):
     matrix = []
     for line in file.readlines():
         row = [int(el) for el in line.strip().split(',')]
@@ -42,10 +42,10 @@ def dijkstra(matrix):
 
 def main():
     with open("P82.txt", "r") as file:
-        matrix = getMatrixFromFile(file)
+        matrix = get_matrix_from_file(file)
 
-    minSum = dijkstra(matrix)
-    print("Minimum Path Sum (start to end, 4 directions):", minSum)
+    min_sum = dijkstra(matrix)
+    print("Minimum Path Sum (start to end, 4 directions):", min_sum)
 
 if __name__ == "__main__":
     main()

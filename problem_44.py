@@ -8,14 +8,14 @@ def is_pentagonal(x):
     return n.is_integer()
 
 def main():
-    MAX = 10000
-    pentagonals = [pentagonal(i) for i in range(1, MAX + 1)]
+    max = 10000
+    pentagonals = [pentagonal(i) for i in range(1, max + 1)]
     pentagonal_set = set(pentagonals)
     min_distance = float('inf')
     result_pair = None
 
-    for i in range(MAX):
-        for j in range(i, MAX):
+    for i in range(max):
+        for j in range(i, max):
             pi = pentagonals[i]
             pj = pentagonals[j]
             if (pi + pj) in pentagonal_set and (pj - pi) in pentagonal_set:

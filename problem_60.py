@@ -16,7 +16,7 @@ def comb(a, b):
 
 def main():
     primes = sieve_of_eratosthenes(LIMIT)
-    # a is first number
+    # 'a' is the first number
     for a in primes:
         # b is second number
         for b in primes:

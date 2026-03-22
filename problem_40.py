@@ -4,12 +4,12 @@
 # and check the length of it
 
 def champernowne(n):
-    numberToConcatenate = 1
-    chConstant = ''
-    while len(chConstant) < n:
-        chConstant = chConstant + str(numberToConcatenate)
-        numberToConcatenate += 1
-    return int(chConstant[n-1])
+    number_to_concatenate = 1
+    ch_constant = ''
+    while len(ch_constant) < n:
+        ch_constant = ch_constant + str(number_to_concatenate)
+        number_to_concatenate += 1
+    return int(ch_constant[n-1])
 
 result = 1
 

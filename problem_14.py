@@ -8,8 +8,8 @@ def collatzer(num):
     return 3*num + 1
 
 def main():
-    maxNum = 0
-    maxSteps = 0
+    max_num = 0
+    max_steps = 0
     numbers = count(start=1)
     for i in numbers:
         if i == 10**6:
@@ -19,10 +19,10 @@ def main():
         while i != 1:
             i = collatzer(i)
             steps += 1
-        if steps > maxSteps:
-            maxNum = j
-            maxSteps = steps
-    print(maxNum)
+        if steps > max_steps:
+            max_num = j
+            max_steps = steps
+    print(max_num)
 
 if __name__ == '__main__':
     main()

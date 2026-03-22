@@ -2,7 +2,7 @@ from recurring_functions.Totatives import phi
 from itertools import permutations
 from tqdm import tqdm
 
-def isPermutation(n, m):
+def is_permutation(n, m):
     return sorted(str(n)) == sorted(str(m))
 
 def main():
@@ -12,7 +12,7 @@ def main():
     tracker = tqdm(total=limit)
     for i in range(1, limit):
         totative = phi(i)
-        if isPermutation(totative, i):
+        if is_permutation(totative, i):
             perms.append(i)
             ratios.append(i/totative)
         tracker.update(1)

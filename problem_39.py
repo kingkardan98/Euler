@@ -12,12 +12,12 @@
 
 import math
 
-def f(x):
+def f(var):
     solutions = 0
-    for c in range(1, math.ceil(x/2)):
+    for c in range(1, math.ceil(var / 2)):
         for b in range(1, c):
             for a in range(1, b):
-                if a + b + c == x and a * a + b * b == c * c:
+                if a + b + c == var and a * a + b * b == c * c:
                     solutions += 1
     return solutions
 
