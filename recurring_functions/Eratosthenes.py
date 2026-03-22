@@ -1,6 +1,6 @@
 from math import isqrt
 
-def sieveOfEratosthenes(n):
+def sieve_of_eratosthenes(n):
     # Table of all numbers up to a million
     prime_table = [True for i in range(n + 1)]
 
@@ -15,7 +15,7 @@ def sieveOfEratosthenes(n):
     # since for every n, if p is the smallest prime divisor of n, it is true that
     # n = p * r >= p * p = p^2. So:
 
-    while (p * p <= n):
+    while p * p <= n:
         # If primes[p] is True, then it's prime
         if prime_table[p]:
             # Delete all multiples, starting from p^2, since all
@@ -30,7 +30,7 @@ def sieveOfEratosthenes(n):
 
     return primes
 
-def sieveOfErathostenesYield(limit):
+def sieve_of_eratosthenes_yield(limit):
     sieve = [True] * (limit + 1)
     sieve[0] = sieve[1] = False
 

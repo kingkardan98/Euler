@@ -1,6 +1,6 @@
 from random import sample
 
-def isPrime(n, k = 3):
+def is_prime(n, k = 3):
    if n < 6:  # assuming n >= 0 in all cases... shortcut small cases here
       return [False, False, True, True, False, True][n]
    elif n % 2 == 0:  # should be faster than n % 2

@@ -10,7 +10,7 @@ def prime_generator():
             yield candidate
             primes.append(candidate)
 
-def isPrime(n):
+def is_prime(n):
     if n % 2 == 0:
         return False
     d = 3

@@ -11,7 +11,7 @@
 # - - Else, go to the next ptime
 # - Increase step (the maximum possible increase is around 10k, so not that big)
 
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
 import itertools
 
 LIMIT = 10000
@@ -40,7 +40,7 @@ def checkTriplets(primes, step):
 
 def main():
     # Here we have all 4-digit primes.
-    primes = [prime for prime in sieveOfEratosthenes(LIMIT) if prime > 1000 and prime < 10000]
+    primes = [prime for prime in sieve_of_eratosthenes(LIMIT) if prime > 1000 and prime < 10000]
 
     step = 1
     while step <= 9999:

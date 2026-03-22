@@ -20,17 +20,17 @@
 def main():
     divisors = [20, 19, 18, 17, 16, 14, 13, 11]
     i = 2520
-    isMagic = True
+    is_magic = True
     while True:
         for div in divisors:
             if i % div != 0:
-                isMagic = False
+                is_magic = False
                 break
-        if isMagic:
+        if is_magic:
             print(i)
             break
         else:
-            isMagic = True
+            is_magic = True
             i += 1
 
 if __name__ == '__main__':

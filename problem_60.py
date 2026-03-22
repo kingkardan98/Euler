@@ -1,8 +1,8 @@
 # I try to implement a solution with the blog of
 # Martin Ueding, which explains the code a lot.
 
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
-from recurring_functions.MillerRabin import isPrime
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
+from recurring_functions.MillerRabin import is_prime
 from math import log10, floor
 
 LIMIT = 10000
@@ -10,12 +10,12 @@ LIMIT = 10000
 def comb(a, b):
     len_a = floor(log10(a))+1
     len_b = floor(log10(b))+1
-    if isPrime(int(a*(10**len_b)+b)) and isPrime(int(b*(10**len_a)+a)):
+    if is_prime(int(a * (10 ** len_b) + b)) and is_prime(int(b * (10 ** len_a) + a)):
         return True
     return False
 
 def main():
-    primes = sieveOfEratosthenes(LIMIT)
+    primes = sieve_of_eratosthenes(LIMIT)
     # a is first number
     for a in primes:
         # b is second number

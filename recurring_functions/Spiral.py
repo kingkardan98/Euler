@@ -1,6 +1,6 @@
 import operator
 
-def getDiagonals(dimension):
+def get_diagonals(dimension):
     # A spiral's diagonals, in the way that is created below, can be gathered by thinking of it like this:
     # B     C
     #    1
@@ -19,7 +19,7 @@ def getDiagonals(dimension):
         rdiag.append(d)
     return ldiag, rdiag
 
-def showSpiral(spiral):
+def show_spiral(spiral):
     dimension = len(spiral)
     
     # Find the maximum number in the spiral (this is the largest number and will be used to determine the padding)
@@ -34,9 +34,9 @@ def showSpiral(spiral):
             print(f"{spiral[i][j]:{width}d}", end=" ")
         print()  # Move to the next line after printing a row
 
-def fillSpiral(spiral, dimension, center, clockwise=False):
+def fill_spiral(spiral, dimension, center, clockwise=False):
     number = 1  # The number with which to fill the cell
-    steps_to_do = 1  # The number of steps to do before the next direction change
+    steps_to_do = 1  # The number of steps to take before the next direction change
     steps_done = 0  # The number of steps done in this cycle
     step_binary_cycle = 0  # Used to alternate step size after every two cycles
 
@@ -67,14 +67,11 @@ def fillSpiral(spiral, dimension, center, clockwise=False):
 
     return spiral
 
-def createSpiral(dimension):
-    # Trova il centro della spirale con la media aritmetica
+def create_spiral(dimension):
     center =  (dimension + 1) // 2 - 1
 
-    # Genera una spirale vuota
     spiral = [[0 for _ in range(dimension)] for _ in range(dimension)]
     
-    # Riempie la spirale in senso antiorario
-    spiral = fillSpiral(spiral, dimension, center)
+    spiral = fill_spiral(spiral, dimension, center)
 
     return spiral

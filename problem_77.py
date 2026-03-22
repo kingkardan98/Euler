@@ -1,5 +1,5 @@
 import functools
-from recurring_functions.Primes import prime_generator, isPrime
+from recurring_functions.Primes import prime_generator, is_prime
 
 def primes_up_to(n):
     for prime in prime_generator():
@@ -22,7 +22,7 @@ def partitions_primes(number, top):
             for x in primes_up_to(top)
         )
     
-    if number <= top and isPrime(number):
+    if number <= top and is_prime(number):
         result += 1
     return result
 

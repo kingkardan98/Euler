@@ -1,136 +1,136 @@
-def DiagEast3(table, x, y):
+def diag_east3(table, x, y):
     try:
         product = table[x-3][y-3] * table[x-2][y-2] * table[x-1][y-1] * table[x][y]
     except IndexError:
         product = 0
     return product
 
-def DiagEast2(table, x, y):
+def diag_east2(table, x, y):
     try:
         product = table[x-2][y-2] * table[x-1][y-1] * table[x][y] * table[x+1][y+1]
     except IndexError:
         product = 0
     return product
 
-def DiagEast1(table, x, y):
+def diag_east1(table, x, y):
     try:
         product = table[x-1][y-1] * table[x][y] * table[x+1][y+1] * table[x+2][y+2]
     except IndexError:
         product = 0
     return product
 
-def DiagEast0(table, x, y):
+def diag_east0(table, x, y):
     try:
         product = table[x][y] * table[x+1][y+1] * table[x+2][y+2] * table[x+3][y+3]
     except IndexError:
         product = 0
     return product
 
-def DiagWest3(table, x, y):
+def diag_west3(table, x, y):
     try:
         product = table[x+3][y-3] * table[x+2][y-2] * table[x+1][y-1] * table[x][y]
     except IndexError:
         product = 0
     return product
 
-def DiagWest2(table, x, y):
+def diag_west2(table, x, y):
     try:
         product = table[x+2][y-2] * table[x+1][y-1] * table[x][y] * table[x-1][y+1]
     except IndexError:
         product = 0
     return product
 
-def DiagWest1(table, x, y):
+def diag_west1(table, x, y):
     try:
         product = table[x+1][y-1] * table[x][y] * table[x-1][y+1] * table[x-2][y+2]
     except IndexError:
         product = 0
     return product
 
-def DiagWest0(table, x, y):
+def diag_west0(table, x, y):
     try:
         product = table[x][y] * table[x-1][y+1] * table[x-2][y+2] * table[x-3][y+3]
     except IndexError:
         product = 0
     return product
 
-def Down3(table, x, y):
+def down3(table, x, y):
     try:
         product = table[x][y-3] * table[x][y-2] * table[x][y-1] * table[x][y]
     except IndexError:
         product = 0
     return product
 
-def Down2(table, x, y):
+def down2(table, x, y):
     try:
         product = table[x][y-2] * table[x][y-1] * table[x][y] * table[x][y+1]
     except IndexError:
         product = 0
     return product
 
-def Down1(table, x, y):
+def down1(table, x, y):
     try:
         product = table[x][y-1] * table[x][y] * table[x][y+1] * table[x][y+2]
     except IndexError:
         product = 0
     return product
 
-def Down0(table, x, y):
+def down0(table, x, y):
     try:
         product = table[x][y] * table[x][y+1] * table[x][y+2] * table[x][y+3]
     except IndexError:
         product = 0
     return product
 
-def Right3(table, x, y):
+def right3(table, x, y):
     try:
         product = table[x-3][y] * table[x-2][y] * table[x-1][y] * table[x][y]
     except IndexError:
         product = 0
     return product
 
-def Right2(table, x, y):
+def right2(table, x, y):
     try:
         product = table[x-2][y] * table[x-1][y] * table[x][y] * table[x+1][y]
     except IndexError:
         product = 0
     return product
 
-def Right1(table, x, y):
+def right1(table, x, y):
     try:
         product = table[x-1][y] * table[x][y] * table[x+1][y] * table[x+2][y]
     except IndexError:
         product = 0
     return product
 
-def Right0(table, x, y):
+def right0(table, x, y):
     try:
         product = table[x][y] * table[x+1][y] * table[x+2][y] * table[x+3][y]
     except IndexError:
         product = 0
     return product
 
-def sixteenProdCalc(table, x, y):
+def sixteen_prod_calc(table, x, y):
     # For every position, there are sixteen maximum possible products.
     # We try every product. If it works, good shit.
     # Functions will be named as follows:
     # <direction=['DiagEast', 'DiagWest', 'Down', 'Right']><offset='3,2,1,0'>()
-    return [DiagEast3(table, x, y),
-            DiagEast2(table, x, y),
-            DiagEast1(table, x, y),
-            DiagEast0(table, x, y),
-            DiagWest3(table, x, y),
-            DiagWest2(table, x, y),
-            DiagWest1(table, x, y),
-            DiagWest0(table, x, y),
-            Down3(table, x, y),
-            Down2(table, x, y),
-            Down1(table, x, y),
-            Down0(table, x, y),
-            Right3(table, x, y),
-            Right2(table, x, y),
-            Right1(table, x, y),
-            Right0(table, x, y)]
+    return [diag_east3(table, x, y),
+            diag_east2(table, x, y),
+            diag_east1(table, x, y),
+            diag_east0(table, x, y),
+            diag_west3(table, x, y),
+            diag_west2(table, x, y),
+            diag_west1(table, x, y),
+            diag_west0(table, x, y),
+            down3(table, x, y),
+            down2(table, x, y),
+            down1(table, x, y),
+            down0(table, x, y),
+            right3(table, x, y),
+            right2(table, x, y),
+            right1(table, x, y),
+            right0(table, x, y)]
 
 def main():
     table = [
@@ -160,7 +160,7 @@ def main():
 
     for x in range(20):
         for y in range(20):
-            products.extend(sixteenProdCalc(table, x, y))
+            products.extend(sixteen_prod_calc(table, x, y))
 
     print(max(products))
 

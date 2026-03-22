@@ -7,7 +7,7 @@ Example: 3rd and 4th digit of 56**3 -> 56003, 56113, 56333, 56443, 56663, 56773,
 Find such a set of length 8.
 '''
 
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
 import itertools
 
 LIMIT = 1000000
@@ -46,7 +46,7 @@ def searchSet(prime, primes):
     return None
 
 def main():
-    primes = set(sieveOfEratosthenes(LIMIT)) 
+    primes = set(sieve_of_eratosthenes(LIMIT))
     for prime in primes:
         family = searchSet(prime, primes)
         if family is not None:

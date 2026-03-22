@@ -1,5 +1,5 @@
 def xor(a, b):
-    bin_a = str(bin(a))[2:] # Rimuove il prefisso 0b
+    bin_a = str(bin(a))[2:] # Removes prefix 0b
     bin_b = str(bin(b))[2:]
     bin_result = ''
 
@@ -15,8 +15,8 @@ def xor(a, b):
     result = int(bin_result, 2)
     return result
 
-def asciiToChar(n):
+def ascii_to_char(n):
     return chr(n)
 
-def charToAscii(c):
+def char_to_ascii(c):
     return ord(c)

@@ -1,13 +1,13 @@
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
-from recurring_functions.Spiral import getDiagonals
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
+from recurring_functions.Spiral import get_diagonals
 
 def main():
     dimension = 3
     while True:
-        primes = sieveOfEratosthenes(dimension ** 2)  # Get primes up to dimension^2
+        primes = sieve_of_eratosthenes(dimension ** 2)  # Get primes up to dimension^2
         
         # Extract the diagonals
-        ldiag, rdiag = getDiagonals(dimension)
+        ldiag, rdiag = get_diagonals(dimension)
         diag_length = 2*dimension - 1
         
         # Count how many primes are in the diagonals

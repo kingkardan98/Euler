@@ -1,10 +1,10 @@
-from recurring_functions.Characters import xor, asciiToChar
+from recurring_functions.Characters import xor, ascii_to_char
 
 def passKeyOverText(key, text, d):
-    key_text = asciiToChar(key[0]) + asciiToChar(key[1]) + asciiToChar(key[2])
+    key_text = ascii_to_char(key[0]) + ascii_to_char(key[1]) + ascii_to_char(key[2])
     xord_text = ''
     for i in range(len(text)):
-        xord_text = xord_text + asciiToChar(xor(key[i % 3], text[i]))
+        xord_text = xord_text + ascii_to_char(xor(key[i % 3], text[i]))
     d.update({key_text : xord_text})
     with open('P59_out.txt', 'a+') as file:
         file.write("Chiave: {}\n".format(key_text))

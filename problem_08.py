@@ -1,5 +1,5 @@
 def main():
-    numberStr = """73167176531330624919225119674426574742355349194934
+    number_str = """73167176531330624919225119674426574742355349194934
     96983520312774506326239578318016984801869478851843
     85861560789112949495459501737958331952853208805511
     12540698747158523863050715693290963295227443043557
@@ -20,17 +20,17 @@ def main():
     05886116467109405077541002256983155200055935729725
     71636269561882670428252483600823257530420752963450"""
 
-    numberStr = numberStr.replace('\n', '').replace(' ', '')
-    maxProd = 1
+    number_str = number_str.replace('\n', '').replace(' ', '')
+    max_prod = 1
 
     for i in range(13, 1000):
-        digits = numberStr[i-13:i]
-        currentProd = 1
+        digits = number_str[i-13:i]
+        current_prod = 1
         for digit in digits:
-            currentProd *= int(digit)
-        if currentProd > maxProd:
-            maxProd = currentProd
-    print(maxProd)
+            current_prod *= int(digit)
+        if current_prod > max_prod:
+            max_prod = current_prod
+    print(max_prod)
 
 if __name__ == '__main__':
     main()

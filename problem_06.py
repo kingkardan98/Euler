@@ -1,11 +1,11 @@
 def main():
-    sum = 0
-    squareSum = 0
+    S = 0
+    square_sum = 0
     for i in range(101):
-        sum += i
-        squareSum += i ** 2
-    sumSquared = sum ** 2
-    print(sumSquared - squareSum)
+        S += i
+        square_sum += i ** 2
+    sum_squared = S ** 2
+    print(sum_squared - square_sum)
 
 if __name__ == '__main__':
     main()

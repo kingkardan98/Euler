@@ -2,7 +2,7 @@
 # The best approach is to iterate over the primes instead of over the numbers.
 # Since we must stay below 50 million, we can put a hard limit on x, y and z (even if it is unoptimized)
 
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
 from math import pow, ceil
 
 
@@ -18,9 +18,9 @@ print(MAX_X)
 
 # I take all the primes up to MAX_X, since it's the biggest of the bunch
 print("Calculating primes...")
-primes_x = sorted(list(sieveOfEratosthenes(MAX_X)))
-primes_y = sorted(list(sieveOfEratosthenes(MAX_Y)))
-primes_z = sorted(list(sieveOfEratosthenes(MAX_Z)))
+primes_x = sorted(list(sieve_of_eratosthenes(MAX_X)))
+primes_y = sorted(list(sieve_of_eratosthenes(MAX_Y)))
+primes_z = sorted(list(sieve_of_eratosthenes(MAX_Z)))
 print("Primes calculated.")
 
 for x in primes_x:

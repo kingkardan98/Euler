@@ -12,14 +12,14 @@
 
 # EDIT 3: Done! Completely generalized the program! And moved the function to the dedicated file for later use
 
-from recurring_functions.MagicNgons import magicNgon
+from recurring_functions.MagicNgons import magic_ngon
 
 SIZE = 5
 
 def main():
     possibleLengths = []
     strings = []
-    magics = magicNgon(SIZE)
+    magics = magic_ngon(SIZE)
     for magic in magics:
         string = ''
         for line in magic:

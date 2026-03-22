@@ -2,13 +2,13 @@
 
 # Easy as pie: generate the primes up to a million, add them up, and check if the result is a prime.
 
-from recurring_functions.Eratosthenes import sieveOfEratosthenes
+from recurring_functions.Eratosthenes import sieve_of_eratosthenes
 
 LIMIT = 10**6
 
 def main():
     print("Generating primes...")
-    primes = sieveOfEratosthenes(LIMIT)
+    primes = sieve_of_eratosthenes(LIMIT)
     print("Done. Checking sublist sums...")
     
     # Create prefix sum array

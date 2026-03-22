@@ -1,4 +1,4 @@
-def isPalindrome(n):
+def is_palindrome(n):
     number = str(n)
     if number == number[::-1]:
         return True
@@ -6,13 +6,13 @@ def isPalindrome(n):
 
 
 def main():
-    maxPalindrome = 999
+    max_palindrome = 999
     for i in range(1000):
         for j in range(1000):
             product = i * j
-            if isPalindrome(product) and product > maxPalindrome:
-                maxPalindrome = product
-    print(maxPalindrome)
+            if is_palindrome(product) and product > max_palindrome:
+                max_palindrome = product
+    print(max_palindrome)
 
 if __name__ == '__main__':
     main()
