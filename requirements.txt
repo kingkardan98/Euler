@@ -2,3 +2,4 @@ tqdm==4.67.1
 
 inflect
 sympy
+requests
