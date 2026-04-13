@@ -54,5 +54,6 @@ coverage.xml
 docs/_build/
 
 # .venv folder
+venv/
 .venv/
 euler/

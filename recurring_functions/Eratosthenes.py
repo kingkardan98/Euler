@@ -1,7 +1,7 @@
 from math import isqrt
 
 def sieve_of_eratosthenes(n):
-    # Table of all numbers up to a million
+    # Table of all numbers up to n
     prime_table = [True for i in range(n + 1)]
 
     # 0 and 1 are not primes.
