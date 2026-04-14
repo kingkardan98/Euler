@@ -1,39 +1,56 @@
-# Easy
-
-LIMITS = [(0, 10**n) for n in range(2, 8)]
-
 from tqdm import tqdm
 
-def reverse(i):
-    return str(i)[::-1]
+# This is an extremely inefficient implementation, but I had some time to waste at work so here goes.
+LIMIT = 1_000_000_000
 
-def generate_reversible_numbers(limit_d, limit_u):
+
+def is_strongly_even(num):
+    # This condition kills off a lot of numbers that automatically doesn't qualify.
+    for digit in str(num):
+        if int(digit) % 2 == 1:
+            return False
+    return True
+
+
+def is_strongly_odd(num):
+    # While this is a bit less intuitive, a strongly odd number, when reversed and added,
+    # will always yield an even number.
+    for digit in str(num):
+        if int(digit) % 2 == 0:
+            return False
+    return True
+
+
+def reverse(num):
+    return int(str(num)[::-1])
+
+
+def main():
     seen = set()
-    reversible_numbers = []
-
-    for i in range(limit_d, limit_u + 1):
-
-        if i in seen:
-            continue
-        seen.add(i)
-
-        reverse_i = reverse(i)
-        int_reverse = int(reverse_i)
-        if int_reverse in seen:
-            continue
-        if reverse_i[0] == '0':
-            continue
-        seen.add(int_reverse)
-
-        rev_sum = i + int_reverse
-
-        if any(int(digit) % 2 == 0 for digit in str(rev_sum)):
+    reversibles = set()
+    for number in tqdm(range(LIMIT), desc="Checking numbers"):
+        if number in seen:
+            # I've already checked it's reverse, skip it
             continue
 
-        reversible_numbers.append(i)
-        reversible_numbers.append(int_reverse)
+        rev = reverse(number)
+        if len(str(rev)) != len(str(number)):
+            # If the reverse has leading zeros, skip it
+            continue
 
-    return reversible_numbers
+        if is_strongly_odd(number) or is_strongly_even(number):
+            continue
+        if rev % 2 == number % 2:
+            continue
+        if not is_strongly_odd(number + rev):
+            continue
 
-for limit in LIMITS:
-    print(len(generate_reversible_numbers(*limit)))
+        if True:
+            reversibles.add(number)
+            reversibles.add(rev)
+        seen.add(number)
+        seen.add(rev)
+    print(len(reversibles))
+
+
+main()
