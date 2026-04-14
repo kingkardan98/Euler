@@ -1,6 +1,7 @@
 from tqdm import tqdm
 
 # This is an extremely inefficient implementation, but I had some time to waste at work so here goes.
+# This took 20 minutes to execute, but whatever
 LIMIT = 1_000_000_000
 
 
